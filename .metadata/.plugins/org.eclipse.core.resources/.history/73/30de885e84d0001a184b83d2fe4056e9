@@ -1,0 +1,15 @@
+package uelbosque.lerni.DAO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import uelbosque.lerni.repository.Kpi_indicadores_rendimiento_repository;
+
+@Service
+public class Kpi_indicadores_rendimientoDAO {
+	
+	@Autowired
+	Kpi_indicadores_rendimiento_repository kpi_indicadores_rendimiento_repository;
+	
+	
+}

@@ -1,0 +1,34 @@
+package uelbosque.lerni.DAO;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+import uelbosque.lerni.repository.Kpi_indicadores_rendimiento_repository;
+
+@Service
+public class Kpi_indicadores_rendimientoDAO {
+	
+	@Autowired
+	Kpi_indicadores_rendimiento_repository kpi_indicadores_rendimiento_repository;
+	
+	/* guardar estudiante */
+	public Estudiante save(Estudiante dir){
+		return  estudianteRepository.save(dir);
+	}
+	/* Buscar estudiante */
+	public List<Estudiante> findAll(){
+		return estudianteRepository.findAll();
+	}
+	/* Buscar estudiante por ID */
+	public Estudiante finOne(Long empid){
+		return estudianteRepository.findOne(empid);
+	}
+	/* borrar estudiante por ID*/
+	
+	public void delete(Estudiante emp){
+		estudianteRepository.delete(emp);
+	}
+}

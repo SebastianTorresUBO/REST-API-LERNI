@@ -1,0 +1,7 @@
+package uelbosque.lerni;
+
+public class ApiRest {
+	public static void main(String[] args){
+		SpringApplication.run(ApiRest.class, args);
+	}
+}

@@ -1,0 +1,77 @@
+package uelbosque.lerni.service;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import uelbosque.lerni.DAO.AdministradorDAO;
+import uelbosque.lerni.model.Administrador;
+import uelbosque.lerni.model.Director;
+
+
+
+
+@RestController
+@RequestMapping("/administrador")
+public class AdministradorService {
+
+	@Autowired
+	AdministradorDAO administradorDAO;
+	
+	@CrossOrigin(origins ="*")
+	@PostMapping("/administrador")
+	public Administrador crearPersona(@Valid @RequestBody Administrador inv){
+		return administradorDAO.save(inv);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* tomar todas las personas*/
+	@GetMapping("/directores")
+	public List<Administrador> getAllPersons(){
+		 return administradorDAO.findAll();
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* obtener persona por ID*/
+	@GetMapping ("/directores/{id}")
+	public ResponseEntity<Administrador> getPersonaById(@PathVariable(value="id") Long empid){
+		
+		Director ciu= administradorDAO.finOne(empid);
+		if(ciu==null){
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(ciu);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* actualizar persona por id*/
+	@PutMapping("/director/{id}")
+	public ResponseEntity<Director> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Director directorDetalle){
+		Director dir = directorDAO.finOne(empid);
+		if(dir==null){
+			return ResponseEntity.notFound().build();
+		}
+		
+		dir.setCedula(directorDetalle.getCedula());
+		dir.setNombres(directorDetalle.getNombres());
+		dir.setApellidos(directorDetalle.getApellidos());
+		dir.setCod_usuario(directorDetalle.getCod_usuario());
+		
+		Director actualizar= directorDAO.save(dir);
+		return ResponseEntity.ok().body(dir);
+		
+	}
+	
+	
+}

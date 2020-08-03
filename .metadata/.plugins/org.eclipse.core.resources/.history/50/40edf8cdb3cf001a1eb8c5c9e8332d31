@@ -1,0 +1,74 @@
+package uelbosque.lerni.service;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import uelbosque.lerni.DAO.ProfesorDAO;
+import uelbosque.lerni.model.Profesor;
+
+
+
+
+@RestController
+@RequestMapping("/profesor")
+public class ProfesorService {
+	
+	@Autowired
+	ProfesorDAO profesorDAO;
+	
+	@CrossOrigin(origins ="*")
+	@PostMapping("/nuevo-director")
+	public Profesor crearPersona(@Valid @RequestBody Profesor pro){
+		return profesorDAO.save(pro);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* tomar todas las personas*/
+	@GetMapping("/directores")
+	public List<Profesor> getAllPersons(){
+		 return profesorDAO.findAll();
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* obtener persona por ID*/
+	@GetMapping ("/directores/{id}")
+	public ResponseEntity<Profesor> getPersonaById(@PathVariable(value="id") Long empid){
+		
+		Profesor pro= profesorDAO.finOne(empid);
+		if(pro==null){
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(pro);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* actualizar persona por id*/
+	@PutMapping("/director/{id}")
+	public ResponseEntity<Profesor> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Profesor profesorDetalle){
+		Profesor pro = profesorDAO.finOne(empid);
+		if(pro==null){
+			return ResponseEntity.notFound().build();
+		}
+		
+		pro.setCedula(profesorDetalle.getCedula());
+		pro.setNombres(profesorDetalle.getNombres());
+		pro.setApellidos(profesorDetalle.getApellidos());
+		pro.setCod_usuario(profesorDetalle.getCod_usuario());
+		
+		Profesor actualizar= profesorDAO.save(pro);
+		return ResponseEntity.ok().body(pro);
+		
+	}
+}

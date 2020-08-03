@@ -1,0 +1,20 @@
+package uelbosque.lerni.model;
+
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="kpi_indicadores_rendimiento")
+public class Kpi_indicadores_rendimiento {
+		
+	@Id
+	private int id_kpi;
+	private int id_estudiante;
+	private int calificacion_actividad;
+	private Date fecha_inicio;
+	private Date fecha_fin;
+	
+}

@@ -1,0 +1,10 @@
+package uelbosque.lerni.service;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/kpi")
+public class Kpi_indicadores_rendimientoService {
+
+}

@@ -1,0 +1,76 @@
+package uelbosque.lerni.service;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import uelbosque.lerni.DAO.Kpi_indicadores_rendimientoDAO;
+import uelbosque.lerni.model.Kpi_indicadores_rendimiento;
+
+
+@RestController
+@RequestMapping("/kpi")
+public class Kpi_indicadores_rendimientoService {
+
+	@Autowired
+	Kpi_indicadores_rendimientoDAO kpi_indicadores_rendimientoDAO;
+	
+	
+	@CrossOrigin(origins ="*")
+	@PostMapping("/nuevo-kpi")
+	public Kpi_indicadores_rendimiento crearPersona(@Valid @RequestBody Kpi_indicadores_rendimiento pro){
+		return padre_tutorDAO.save(pro);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* tomar todas las padre*/
+	@GetMapping("/kpis")
+	public List<Kpi_indicadores_rendimiento> getAllPersons(){
+			return padre_tutorDAO.findAll();
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* obtener padre por ID*/
+	@GetMapping ("/kpis/{id}")
+	public ResponseEntity<Kpi_indicadores_rendimiento> getPersonaById(@PathVariable(value="id") Long empid){
+		
+		Kpi_indicadores_rendimiento pro= padre_tutorDAO.finOne(empid);
+		if(pro==null){
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(pro);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* actualizar padre por id*/
+	@PutMapping("/kpi/{id}")
+	public ResponseEntity<Kpi_indicadores_rendimiento> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Kpi_indicadores_rendimiento padreDetalle){
+		Padre_tutor pad = padre_tutorDAO.finOne(empid);
+		if(pad==null){
+			return ResponseEntity.notFound().build();
+		}
+		
+		pad.setCedula(padreDetalle.getCedula());
+		pad.setNombre(padreDetalle.getNombre());
+		pad.setApellidos(padreDetalle.getApellidos());
+		pad.setCod_usuario(padreDetalle.getCod_usuario());
+		pad.setId_estudiante(padreDetalle.getId_estudiante());
+		
+		Kpi_indicadores_rendimiento actualizar= padre_tutorDAO.save(pad);
+		return ResponseEntity.ok().body(pad);
+		
+	}
+	
+	
+}

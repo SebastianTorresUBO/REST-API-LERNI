@@ -1,0 +1,30 @@
+package uelbosque.lerni.DAO;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+
+public class EstudianteDAO {
+	@Autowired
+	DirectorRepository directorRepository;
+	
+	/* guardar Persona */
+	public Director save(Director dir){
+		return  directorRepository.save(dir);
+	}
+	/* Buscar Persona */
+	public List<Director> findAll(){
+		return directorRepository.findAll();
+	}
+	/* Buscar Persona por ID */
+	public Director finOne(Long empid){
+		return directorRepository.findOne(empid);
+	}
+	/* borrar Persona por ID*/
+	
+	public void delete(Director emp){
+		directorRepository.delete(emp);
+	}
+}

@@ -1,0 +1,12 @@
+package uelbosque.lerni.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@Entity
+@Table(name="calificacion")
+public class Calificacion {
+
+}

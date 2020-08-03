@@ -1,0 +1,72 @@
+package uelbosque.lerni.service;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import uelbosque.lerni.DAO.EstudianteDAO;
+import uelbosque.lerni.model.Estudiante;
+
+
+@RestController
+@RequestMapping("/estudiante")
+public class EstudianteService {
+	
+	@Autowired
+	EstudianteDAO estudianteDAO;
+	
+	@CrossOrigin(origins ="*")
+	@PostMapping("/nuevo-estudiante")
+	public Estudiante crearPersona(@Valid @RequestBody Estudiante inv){
+		return estudianteDAO.save(inv);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* tomar todas las personas*/
+	@GetMapping("/estudiantes")
+	public List<Estudiante> getAllPersons(){
+		 return estudianteDAO.findAll();
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* obtener persona por ID*/
+	@GetMapping ("/estudiantes/{id}")
+	public ResponseEntity<Estudiante> getPersonaById(@PathVariable(value="id") Long empid){
+		
+		Estudiante ciu= estudianteDAO.finOne(empid);
+		if(ciu==null){
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(ciu);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* actualizar persona por id*/
+	@PutMapping("/estudiante/{id}")
+	public ResponseEntity<Estudiante> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Estudiante estudianteDetalle){
+		Estudiante est = estudianteDAO.finOne(empid);
+		if(est==null){
+			return ResponseEntity.notFound().build();
+		}
+		
+		est.setId_estudiante(estudianteDetalle.getId_estudiante());
+		est.setNombre(estudianteDetalle.getNombre());
+		est.setApellidos(estudianteDetalle.getApellidos());
+		est.setCod_usuario(estudianteDetalle.getCod_usuario());
+		
+		Estudiante actualizar= directorDAO.save(est);
+		return ResponseEntity.ok().body(dir);
+		
+	}
+}

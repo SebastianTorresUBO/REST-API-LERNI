@@ -1,0 +1,5 @@
+package uelbosque.lerni.repository;
+
+public class Kpi_indicadores_rendimiento_repository {
+
+}

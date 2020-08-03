@@ -1,0 +1,3 @@
+INDEX VERSION 1.126
+D:\ArtefactoLerni\API-REST\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4081457684.index
+\lerni\src\main\java

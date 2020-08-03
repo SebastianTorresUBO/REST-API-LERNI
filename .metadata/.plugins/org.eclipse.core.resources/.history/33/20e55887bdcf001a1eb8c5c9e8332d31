@@ -1,0 +1,14 @@
+package uelbosque.lerni.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Curso {
+	
+	@Id
+	private int codigo_curso;
+	private String nombre_curso;
+	
+		
+}

@@ -1,0 +1,39 @@
+package uelbosque.lerni.DAO;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import uelbosque.lerni.model.Curso;
+
+import uelbosque.lerni.repository.CursoRepository;
+
+
+
+
+@Service
+public class CursoDAO {
+
+	@Autowired
+	CursoRepository cursoRepository;
+	
+	/* guardar Persona */
+	public Curso save(Director dir){
+		return  directorRepository.save(dir);
+	}
+	/* Buscar Persona */
+	public List<Director> findAll(){
+		return directorRepository.findAll();
+	}
+	/* Buscar Persona por ID */
+	public Director finOne(Long empid){
+		return directorRepository.findOne(empid);
+	}
+	/* borrar Persona por ID*/
+	
+	public void delete(Director emp){
+		directorRepository.delete(emp);
+	}
+	
+}

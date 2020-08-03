@@ -1,0 +1,8 @@
+package uelbosque.lerni.repository;
+
+import uelbosque.lerni.model.solicitudesDeRegistro;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SolicitudUsuarioRepository extends JpaRepository<solicitudesDeRegistro, Long>{
+
+}

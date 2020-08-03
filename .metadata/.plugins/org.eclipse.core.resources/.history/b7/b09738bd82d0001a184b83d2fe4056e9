@@ -1,0 +1,72 @@
+package uelbosque.lerni.service;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import uelbosque.lerni.DAO.ActividadDisciplinariaDAO;
+import uelbosque.lerni.model.ActividadDisciplinaria;
+
+@RestController
+@RequestMapping("/actividad-disciplinaria")
+public class ActividadDisciplinariaService {
+	
+	@Autowired
+	ActividadDisciplinariaDAO actividadDisciplinariaDAO;
+	
+	@CrossOrigin(origins ="*")
+	@PostMapping("/actividad")
+	public ActividadDisciplinaria crearActividad(@Valid @RequestBody ActividadDisciplinaria inv){
+		return actividadDisciplinariaDAO.save(inv);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* tomar todas las personas*/
+	@GetMapping("/actividades")
+	public List<ActividadDisciplinaria> getAllPersons(){
+		 return actividadDisciplinariaDAO.findAll();
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* obtener persona por ID*/
+	@GetMapping ("/actividades/{id}")
+	public ResponseEntity<ActividadDisciplinaria> getPersonaById(@PathVariable(value="id") Long empid){
+		
+		ActividadDisciplinaria ciu= actividadDisciplinariaDAO.finOne(empid);
+		if(ciu==null){
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(ciu);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* actualizar persona por id*/
+	@PutMapping("/actividad/{id}")
+	public ResponseEntity<ActividadDisciplinaria> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody ActividadDisciplinaria actividadDetalle){
+		ActividadDisciplinaria act = actividadDisciplinariaDAO.finOne(empid);
+		if(act==null){
+			return ResponseEntity.notFound().build();
+		}
+		
+		act.setCod_actividad(actividadDetalle.getCod_actividad());
+		act.setNombre(actividadDetalle.getNombre());
+		act.setDescripcion_actividad(actividadDetalle.getDescripcion_actividad());
+		act.setCod_usuario(actividadDetalle.getCod_usuario());
+		
+		ActividadDisciplinaria actualizar= actividadDisciplinariaDAO.save(act);
+		return ResponseEntity.ok().body(act);
+		
+	}
+	
+}

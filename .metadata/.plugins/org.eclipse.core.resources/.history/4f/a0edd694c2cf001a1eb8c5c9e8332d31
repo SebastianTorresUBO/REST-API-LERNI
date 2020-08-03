@@ -1,0 +1,40 @@
+package uelbosque.lerni.DAO;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+
+import uelbosque.lerni.model.Calificacion;
+import uelbosque.lerni.repository.CalificacionRepository;
+
+
+@Service
+public class CalificacionDAO {
+
+	@Autowired
+	CalificacionRepository calificacionRepository;
+	
+
+	
+	/* guardar Persona */
+	public Calificacion save(Curso dir){
+		return  cursoRepository.save(dir);
+	}
+	/* Buscar Persona */
+	public List<Curso> findAll(){
+		return cursoRepository.findAll();
+	}
+	/* Buscar Persona por ID */
+	public Curso finOne(Long empid){
+		return cursoRepository.findOne(empid);
+	}
+	/* borrar Persona por ID*/
+	
+	public void delete(Curso emp){
+		cursoRepository.delete(emp);
+	}
+	
+}

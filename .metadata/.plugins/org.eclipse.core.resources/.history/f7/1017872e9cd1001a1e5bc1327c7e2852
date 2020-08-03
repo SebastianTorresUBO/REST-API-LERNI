@@ -1,0 +1,85 @@
+package uelbosque.lerni.service;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import uelbosque.lerni.DAO.Padre_tutorDAO;
+
+import uelbosque.lerni.model.Padre_tutor;
+
+@RestController
+@RequestMapping("/padre")
+public class PadreService {
+
+	@Autowired
+	Padre_tutorDAO padre_tutorDAO;
+	
+	@CrossOrigin(origins ="*")
+	@PostMapping("/nuevo-padre")
+	public Padre_tutor crearPersona(@Valid @RequestBody Padre_tutor pro){
+		return padre_tutorDAO.save(pro);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* tomar todas las padre*/
+	@GetMapping("/padres")
+	public List<Padre_tutor> getAllPersons(){
+			return padre_tutorDAO.findAll();
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* obtener padre por ID*/
+	@GetMapping ("/padres/{id}")
+	public ResponseEntity<Padre_tutor> getPersonaById(@PathVariable(value="id") Long empid){
+		
+		Padre_tutor pro= padre_tutorDAO.finOne(empid);
+		if(pro==null){
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(pro);
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* actualizar padre por id*/
+	@PutMapping("/padre/{id}")
+	public ResponseEntity<Padre_tutor> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Padre_tutor padreDetalle){
+		Padre_tutor pad = padre_tutorDAO.finOne(empid);
+		if(pad==null){
+			return ResponseEntity.notFound().build();
+		}
+		
+		pad.setCedula(padreDetalle.getCedula());
+		pad.setNombre(padreDetalle.getNombre());
+		pad.setApellidos(padreDetalle.getApellidos());
+		pad.setCod_usuario(padreDetalle.getCod_usuario());
+		pad.setId_estudiante(padreDetalle.getId_estudiante());
+		
+		Padre_tutor actualizar= padre_tutorDAO.save(pad);
+		return ResponseEntity.ok().body(pad);
+		
+	}
+	
+	@DeleteMapping("/administrador/{id}")
+	public ResponseEntity<Administrador> deleteAdministrador(@PathVariable(value="id") Long empid){
+		Administrador ciu=administradorDAO.finOne(empid);
+		if (ciu==null){
+			return ResponseEntity.notFound().build();
+		}
+		administradorDAO.delete(ciu);
+		return ResponseEntity.ok().build();
+	}
+	
+}

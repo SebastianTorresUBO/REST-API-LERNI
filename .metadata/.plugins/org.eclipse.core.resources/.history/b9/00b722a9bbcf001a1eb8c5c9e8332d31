@@ -1,0 +1,16 @@
+package uelbosque.lerni.model;
+
+import javax.persistence.Table;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@Table(name="administrador")
+public class Administrador {
+	
+	private int cedula;
+	private String nombres;
+	private String apellidos;
+	private int cod_usuario;
+	
+}

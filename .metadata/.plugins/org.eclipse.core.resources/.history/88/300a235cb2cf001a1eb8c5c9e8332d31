@@ -1,0 +1,21 @@
+package uelbosque.lerni.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="profesor")
+public class Profesor {
+	
+	@Id
+	private int cedula;
+	private String nombres;
+	private String apellidos;
+	private String celular;
+	private String titulo_profesional;
+	private int id_calificacion;
+	private int codigo_curso;
+	private int cod_actividad_asignada;
+	private int cod_usuario;
+}

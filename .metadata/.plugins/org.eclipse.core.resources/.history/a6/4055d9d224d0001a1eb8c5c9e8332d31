@@ -1,0 +1,17 @@
+package uelbosque.lerni.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="actividad_disciplinaria")
+public class ActividadDisciplinaria {
+	
+	@Id
+	private int cod_actividad;
+	private String nombre;
+	private String descripcion_actividad;
+	private int recompensa_por_cumplimiento;
+	
+}

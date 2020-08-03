@@ -1,0 +1,17 @@
+package uelbosque.lerni.DAO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import uelbosque.lerni.repository.AdministradorRepository;
+
+
+@Service
+public class AdministradorDAO {
+
+	@Autowired
+	AdministradorRepository administradorRepository;
+	
+		
+	
+}
