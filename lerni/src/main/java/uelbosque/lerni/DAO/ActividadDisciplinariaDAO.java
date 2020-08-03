@@ -15,22 +15,22 @@ public class ActividadDisciplinariaDAO {
 	@Autowired
 	ActividadDisciplinariaRepository actividadDisciplinariaRepository;
 	
-	/* guardar Administrador */
+	/* guardar Actividad disciplinaria */
 	public ActividadDisciplinaria save(ActividadDisciplinaria dir){
 		return  actividadDisciplinariaRepository.save(dir);
 	}
 	
-	/* Buscar Administrador */
+	/* Buscar Actividad disciplinaria */
 	public List<ActividadDisciplinaria> findAll(){
 		return actividadDisciplinariaRepository.findAll();
 	}
 	
-	/* Buscar Administrador por ID */
+	/* Buscar Actividad disciplinaria por ID */
 	public ActividadDisciplinaria finOne(Long empid){
 		return actividadDisciplinariaRepository.findOne(empid);
 	}
 	
-	/* borrar Administrador por ID*/
+	/* borrar Actividad disciplinaria por ID*/
 	public void delete(ActividadDisciplinaria emp){
 		actividadDisciplinariaRepository.delete(emp);
 	}	

@@ -32,21 +32,21 @@ public class DirectorService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-director")
-	public Director crearPersona(@Valid @RequestBody Director inv){
+	public Director crearDirector(@Valid @RequestBody Director inv){
 		return directorDAO.save(inv);
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* tomar todas las personas*/
+	/* tomar todos los directores*/
 	@GetMapping("/directores")
-	public List<Director> getAllPersons(){
+	public List<Director> getAllDirectores(){
 		 return directorDAO.findAll();
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* obtener persona por ID*/
+	/* obtener Director por ID*/
 	@GetMapping ("/directores/{id}")
-	public ResponseEntity<Director> getPersonaById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Director> getDirectorById(@PathVariable(value="id") Long empid){
 		
 		Director ciu= directorDAO.finOne(empid);
 		if(ciu==null){
@@ -56,9 +56,9 @@ public class DirectorService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* actualizar persona por id*/
+	/* actualizar Director por id*/
 	@PutMapping("/director/{id}")
-	public ResponseEntity<Director> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Director directorDetalle){
+	public ResponseEntity<Director> updateDirector(@PathVariable(value="id") Long empid, @Valid @RequestBody Director directorDetalle){
 		Director dir = directorDAO.finOne(empid);
 		if(dir==null){
 			return ResponseEntity.notFound().build();
@@ -75,7 +75,7 @@ public class DirectorService {
 	}
 	
 	@DeleteMapping("/director/{id}")
-	public ResponseEntity<Director> deleteAdministrador(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Director> deleteDirector(@PathVariable(value="id") Long empid){
 		Director ciu=directorDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.notFound().build();

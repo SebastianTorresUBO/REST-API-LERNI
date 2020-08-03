@@ -14,19 +14,19 @@ public class DirectorDAO {
 	@Autowired
 	DirectorRepository directorRepository;
 	
-	/* guardar Persona */
+	/* guardar director */
 	public Director save(Director dir){
 		return  directorRepository.save(dir);
 	}
-	/* Buscar Persona */
+	/* Buscar director */
 	public List<Director> findAll(){
 		return directorRepository.findAll();
 	}
-	/* Buscar Persona por ID */
+	/* Buscar director por ID */
 	public Director finOne(Long empid){
 		return directorRepository.findOne(empid);
 	}
-	/* borrar Persona por ID*/
+	/* borrar director por ID*/
 	
 	public void delete(Director emp){
 		directorRepository.delete(emp);

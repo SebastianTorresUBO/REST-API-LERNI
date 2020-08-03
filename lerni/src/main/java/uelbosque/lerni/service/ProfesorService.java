@@ -32,14 +32,14 @@ public class ProfesorService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-profesor")
-	public Profesor crearPersona(@Valid @RequestBody Profesor pro){
+	public Profesor crearProfesor(@Valid @RequestBody Profesor pro){
 		return profesorDAO.save(pro);
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todas las profesor*/
 	@GetMapping("/profesores")
-	public List<Profesor> getAllPersons(){
+	public List<Profesor> getAllProfesores(){
 		
 			return profesorDAO.findAll();
 		
@@ -48,7 +48,7 @@ public class ProfesorService {
 	@CrossOrigin(origins ="*")
 	/* obtener profesor por ID*/
 	@GetMapping ("/profesores/{id}")
-	public ResponseEntity<Profesor> getPersonaById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Profesor> getProfesorById(@PathVariable(value="id") Long empid){
 		
 		Profesor pro= profesorDAO.finOne(empid);
 		if(pro==null){
@@ -60,7 +60,7 @@ public class ProfesorService {
 	@CrossOrigin(origins ="*")
 	/* actualizar profesor por id*/
 	@PutMapping("/profesor/{id}")
-	public ResponseEntity<Profesor> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Profesor profesorDetalle){
+	public ResponseEntity<Profesor> updateProfesor(@PathVariable(value="id") Long empid, @Valid @RequestBody Profesor profesorDetalle){
 		Profesor pro = profesorDAO.finOne(empid);
 		if(pro==null){
 			return ResponseEntity.notFound().build();
@@ -82,7 +82,7 @@ public class ProfesorService {
 	}
 	
 	@DeleteMapping("/profesor/{id}")
-	public ResponseEntity<Profesor> deleteAdministrador(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Profesor> deleteProfesor(@PathVariable(value="id") Long empid){
 		Profesor ciu=profesorDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.notFound().build();

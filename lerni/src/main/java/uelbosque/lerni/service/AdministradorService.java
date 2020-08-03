@@ -33,21 +33,21 @@ public class AdministradorService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/administrador")
-	public Administrador crearPersona(@Valid @RequestBody Administrador inv){
+	public Administrador crearAdministrador(@Valid @RequestBody Administrador inv){
 		return administradorDAO.save(inv);
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* tomar todas las personas*/
+	/* tomar todos los administradores*/
 	@GetMapping("/administradores")
-	public List<Administrador> getAllPersons(){
+	public List<Administrador> getAllAdministradores(){
 		 return administradorDAO.findAll();
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* obtener persona por ID*/
+	/* obtener administrador por ID*/
 	@GetMapping ("/administradores/{id}")
-	public ResponseEntity<Administrador> getPersonaById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Administrador> getAdministradorById(@PathVariable(value="id") Long empid){
 		
 		Administrador ciu= administradorDAO.finOne(empid);
 		if(ciu==null){
@@ -57,9 +57,9 @@ public class AdministradorService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* actualizar persona por id*/
+	/* actualizar administrador por id*/
 	@PutMapping("/administrador/{id}")
-	public ResponseEntity<Administrador> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Administrador administradorDetalle){
+	public ResponseEntity<Administrador> updateAdministrador(@PathVariable(value="id") Long empid, @Valid @RequestBody Administrador administradorDetalle){
 		Administrador dir = administradorDAO.finOne(empid);
 		if(dir==null){
 			return ResponseEntity.notFound().build();

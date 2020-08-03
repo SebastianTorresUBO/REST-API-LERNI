@@ -30,21 +30,21 @@ public class EstudianteService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-estudiante")
-	public Estudiante crearPersona(@Valid @RequestBody Estudiante inv){
+	public Estudiante crearEstudiante(@Valid @RequestBody Estudiante inv){
 		return estudianteDAO.save(inv);
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* tomar todas las personas*/
+	/* tomar todos los estudiantes*/
 	@GetMapping("/estudiantes")
-	public List<Estudiante> getAllPersons(){
+	public List<Estudiante> getAllEstudiantes(){
 		 return estudianteDAO.findAll();
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* obtener persona por ID*/
+	/* obtener estudiante por ID*/
 	@GetMapping ("/estudiantes/{id}")
-	public ResponseEntity<Estudiante> getPersonaById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Estudiante> getEstudianteById(@PathVariable(value="id") Long empid){
 		
 		Estudiante ciu= estudianteDAO.finOne(empid);
 		if(ciu==null){
@@ -54,9 +54,9 @@ public class EstudianteService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* actualizar persona por id*/
+	/* actualizar estudiante por id*/
 	@PutMapping("/estudiante/{id}")
-	public ResponseEntity<Estudiante> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Estudiante estudianteDetalle){
+	public ResponseEntity<Estudiante> updateEstudiante(@PathVariable(value="id") Long empid, @Valid @RequestBody Estudiante estudianteDetalle){
 		Estudiante est = estudianteDAO.finOne(empid);
 		if(est==null){
 			return ResponseEntity.notFound().build();
@@ -76,7 +76,7 @@ public class EstudianteService {
 	}
 	
 	@DeleteMapping("/estudiante/{id}")
-	public ResponseEntity<Estudiante> deleteVenta(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Estudiante> deleteEstudiante(@PathVariable(value="id") Long empid){
 		Estudiante ciu=estudianteDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.notFound().build();

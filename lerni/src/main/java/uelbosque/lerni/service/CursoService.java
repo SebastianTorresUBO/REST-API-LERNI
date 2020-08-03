@@ -31,21 +31,21 @@ public class CursoService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/curso")
-	public Curso crearPersona(@Valid @RequestBody Curso inv){
+	public Curso crearCurso(@Valid @RequestBody Curso inv){
 		return cursoDAO.save(inv);
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* tomar todas las personas*/
+	/* tomar todos los cursos*/
 	@GetMapping("/cursos")
-	public List<Curso> getAllPersons(){
+	public List<Curso> getAllCursos(){
 		 return cursoDAO.findAll();
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* obtener persona por ID*/
+	/* obtener curso por ID*/
 	@GetMapping ("/cursos/{id}")
-	public ResponseEntity<Curso> getPersonaById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Curso> getCursoById(@PathVariable(value="id") Long empid){
 		
 		Curso ciu= cursoDAO.finOne(empid);
 		if(ciu==null){
@@ -55,9 +55,9 @@ public class CursoService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* actualizar persona por id*/
+	/* actualizar Curso por id*/
 	@PutMapping("/curso/{id}")
-	public ResponseEntity<Curso> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Curso cursoDetalle){
+	public ResponseEntity<Curso> updateCurso(@PathVariable(value="id") Long empid, @Valid @RequestBody Curso cursoDetalle){
 		Curso cur = cursoDAO.finOne(empid);
 		if(cur==null){
 			return ResponseEntity.notFound().build();
@@ -75,7 +75,7 @@ public class CursoService {
 	}
 	
 	@DeleteMapping("/curso/{id}")
-	public ResponseEntity<Curso> deleteAdministrador(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Curso> deleteCurso(@PathVariable(value="id") Long empid){
 		Curso ciu=cursoDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.notFound().build();

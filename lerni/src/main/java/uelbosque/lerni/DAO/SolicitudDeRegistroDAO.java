@@ -15,19 +15,19 @@ public class SolicitudDeRegistroDAO {
 	SolicitudesDeRegistroRepository solicitudUsuarioRepository;
 	
 	
-	/* guardar Persona */
+	/* guardar Solicitud */
 	public SolicitudesDeRegistro save(SolicitudesDeRegistro sol){
 		return  solicitudUsuarioRepository.save(sol);
 	}
-	/* Buscar Persona */
+	/* Buscar Solicitud */
 	public List<SolicitudesDeRegistro> findAll(){
 		return solicitudUsuarioRepository.findAll();
 	}
-	/* Buscar Persona por ID */
+	/* Buscar Solicitud por ID */
 	public SolicitudesDeRegistro finOne(Long empid){
 		return solicitudUsuarioRepository.findOne(empid);
 	}
-	/* borrar Persona por ID*/
+	/* borrar Solicitud por ID*/
 	
 	public void delete(SolicitudesDeRegistro emp){
 		solicitudUsuarioRepository.delete(emp);

@@ -40,16 +40,16 @@ public class ActividadDisciplinariaService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* tomar todas las personas*/
+	/* tomar todas las actividades*/
 	@GetMapping("/actividades")
-	public List<ActividadDisciplinaria> getAllPersons(){
+	public List<ActividadDisciplinaria> getAllActividades(){
 		 return actividadDisciplinariaDAO.findAll();
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* obtener persona por ID*/
+	/* obtener actiidad por ID*/
 	@GetMapping ("/actividades/{id}")
-	public ResponseEntity<ActividadDisciplinaria> getPersonaById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<ActividadDisciplinaria> getActividadId(@PathVariable(value="id") Long empid){
 		
 		ActividadDisciplinaria ciu= actividadDisciplinariaDAO.finOne(empid);
 		if(ciu==null){
@@ -59,9 +59,9 @@ public class ActividadDisciplinariaService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* actualizar persona por id*/
+	/* actualizar actividad por id*/
 	@PutMapping("/actividad/{id}")
-	public ResponseEntity<ActividadDisciplinaria> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody ActividadDisciplinaria actividadDetalle){
+	public ResponseEntity<ActividadDisciplinaria> updateActividad(@PathVariable(value="id") Long empid, @Valid @RequestBody ActividadDisciplinaria actividadDetalle){
 		ActividadDisciplinaria act = actividadDisciplinariaDAO.finOne(empid);
 		if(act==null){
 			return ResponseEntity.notFound().build();
@@ -79,7 +79,7 @@ public class ActividadDisciplinariaService {
 	}
 	
 	@DeleteMapping("/actividad/{id}")
-	public ResponseEntity<ActividadDisciplinaria> deleteVenta(@PathVariable(value="id") Long empid){
+	public ResponseEntity<ActividadDisciplinaria> deleteActividad(@PathVariable(value="id") Long empid){
 		ActividadDisciplinaria ciu=actividadDisciplinariaDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.notFound().build();

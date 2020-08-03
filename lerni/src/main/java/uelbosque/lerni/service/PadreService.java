@@ -34,16 +34,16 @@ public class PadreService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* tomar todas las padre*/
+	/* tomar todos los padres*/
 	@GetMapping("/padres")
-	public List<Padre_tutor> getAllPersons(){
+	public List<Padre_tutor> getAllPadres(){
 			return padre_tutorDAO.findAll();
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* obtener padre por ID*/
+	/* obtener padres por ID*/
 	@GetMapping ("/padres/{id}")
-	public ResponseEntity<Padre_tutor> getPersonaById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Padre_tutor> getPadresById(@PathVariable(value="id") Long empid){
 		
 		Padre_tutor pro= padre_tutorDAO.finOne(empid);
 		if(pro==null){
@@ -55,7 +55,7 @@ public class PadreService {
 	@CrossOrigin(origins ="*")
 	/* actualizar padre por id*/
 	@PutMapping("/padre/{id}")
-	public ResponseEntity<Padre_tutor> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Padre_tutor padreDetalle){
+	public ResponseEntity<Padre_tutor> updatePadre(@PathVariable(value="id") Long empid, @Valid @RequestBody Padre_tutor padreDetalle){
 		Padre_tutor pad = padre_tutorDAO.finOne(empid);
 		if(pad==null){
 			return ResponseEntity.notFound().build();
@@ -73,7 +73,7 @@ public class PadreService {
 	}
 	
 	@DeleteMapping("/padre/{id}")
-	public ResponseEntity<Padre_tutor> deleteAdministrador(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Padre_tutor> deletePadre(@PathVariable(value="id") Long empid){
 		Padre_tutor ciu=padre_tutorDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.notFound().build();

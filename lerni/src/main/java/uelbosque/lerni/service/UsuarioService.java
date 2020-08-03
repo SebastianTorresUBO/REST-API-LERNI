@@ -34,16 +34,16 @@ public class UsuarioService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* tomar todas los usuarios*/
+	/* tomar todos los usuarios*/
 	@GetMapping("/solicitudes-usuario")
-	public List<Usuario> getAllPersons(){
+	public List<Usuario> getAllUsuarios(){
 		 return usuarioDAO.findAll();
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* obtener usuario por ID*/
 	@GetMapping ("/usuario/{id}")
-	public ResponseEntity<Usuario> getPersonaById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Usuario> getUsuarioById(@PathVariable(value="id") Long empid){
 		
 		Usuario ciu= usuarioDAO.finOne(empid);
 		if(ciu==null){
@@ -55,7 +55,7 @@ public class UsuarioService {
 	@CrossOrigin(origins ="*")
 	/* actualizar usuario por id*/
 	@PutMapping("/usuario/{id}")
-	public ResponseEntity<Usuario> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Usuario usuarioDetalle){
+	public ResponseEntity<Usuario> updateUsuario(@PathVariable(value="id") Long empid, @Valid @RequestBody Usuario usuarioDetalle){
 		Usuario sol = usuarioDAO.finOne(empid);
 		if(sol==null){
 			return ResponseEntity.notFound().build();
@@ -67,11 +67,10 @@ public class UsuarioService {
 		
 		Usuario actualizar= usuarioDAO.save(sol);
 		return ResponseEntity.ok().body(sol);
-		
 	}
 	
 	@DeleteMapping("/usuario/{id}")
-	public ResponseEntity<Usuario> deleteAdministrador(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Usuario> deleteUsuario(@PathVariable(value="id") Long empid){
 		Usuario ciu=usuarioDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.notFound().build();

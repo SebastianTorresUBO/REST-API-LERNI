@@ -15,19 +15,19 @@ public class CursoDAO {
 	@Autowired
 	CursoRepository cursoRepository;
 	
-	/* guardar Persona */
+	/* guardar curso */
 	public Curso save(Curso dir){
 		return  cursoRepository.save(dir);
 	}
-	/* Buscar Persona */
+	/* Buscar curso */
 	public List<Curso> findAll(){
 		return cursoRepository.findAll();
 	}
-	/* Buscar Persona por ID */
+	/* Buscar curso por ID */
 	public Curso finOne(Long empid){
 		return cursoRepository.findOne(empid);
 	}
-	/* borrar Persona por ID*/
+	/* borrar curso por ID*/
 	
 	public void delete(Curso emp){
 		cursoRepository.delete(emp);

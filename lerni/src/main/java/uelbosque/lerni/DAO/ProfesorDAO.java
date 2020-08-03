@@ -14,19 +14,19 @@ public class ProfesorDAO {
 	@Autowired
 	ProfesorRepository profesorRepository;
 	
-	/* guardar Persona */
+	/* guardar Profesor */
 	public Profesor save(Profesor dir){
 		return  profesorRepository.save(dir);
 	}
-	/* Buscar Persona */
+	/* Buscar Profesor */
 	public List<Profesor> findAll(){
 		return profesorRepository.findAll();
 	}
-	/* Buscar Persona por ID */
+	/* Buscar Profesor por ID */
 	public Profesor finOne(Long empid){
 		return profesorRepository.findOne(empid);
 	}
-	/* borrar Persona por ID*/
+	/* borrar Profesor por ID*/
 	
 	public void delete(Profesor emp){
 		profesorRepository.delete(emp);

@@ -30,21 +30,21 @@ public class Kpi_indicadores_rendimientoService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-kpi")
-	public Kpi_indicadores_rendimiento crearPersona(@Valid @RequestBody Kpi_indicadores_rendimiento pro){
+	public Kpi_indicadores_rendimiento crearKpi(@Valid @RequestBody Kpi_indicadores_rendimiento pro){
 		return kpi_indicadores_rendimientoDAO.save(pro);
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* tomar todas las padre*/
+	/* tomar todos los kpi*/
 	@GetMapping("/kpis")
-	public List<Kpi_indicadores_rendimiento> getAllPersons(){
+	public List<Kpi_indicadores_rendimiento> getAllKpis(){
 			return kpi_indicadores_rendimientoDAO.findAll();
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* obtener padre por ID*/
+	/* obtener kpi por ID*/
 	@GetMapping ("/kpis/{id}")
-	public ResponseEntity<Kpi_indicadores_rendimiento> getPersonaById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Kpi_indicadores_rendimiento> getKpiById(@PathVariable(value="id") Long empid){
 		
 		Kpi_indicadores_rendimiento pro= kpi_indicadores_rendimientoDAO.finOne(empid);
 		if(pro==null){
@@ -54,9 +54,9 @@ public class Kpi_indicadores_rendimientoService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* actualizar padre por id*/
+	/* actualizar kpi por id*/
 	@PutMapping("/kpi/{id}")
-	public ResponseEntity<Kpi_indicadores_rendimiento> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Kpi_indicadores_rendimiento kpiDetalle){
+	public ResponseEntity<Kpi_indicadores_rendimiento> updateKpi(@PathVariable(value="id") Long empid, @Valid @RequestBody Kpi_indicadores_rendimiento kpiDetalle){
 		Kpi_indicadores_rendimiento kpi = kpi_indicadores_rendimientoDAO.finOne(empid);
 		if(kpi==null){
 			return ResponseEntity.notFound().build();
@@ -73,7 +73,7 @@ public class Kpi_indicadores_rendimientoService {
 		
 	}
 	@DeleteMapping("/kpi/{id}")
-	public ResponseEntity<Kpi_indicadores_rendimiento> deleteAdministrador(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Kpi_indicadores_rendimiento> deleteKpis(@PathVariable(value="id") Long empid){
 		Kpi_indicadores_rendimiento ciu=kpi_indicadores_rendimientoDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.notFound().build();

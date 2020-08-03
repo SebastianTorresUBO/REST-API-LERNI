@@ -29,21 +29,21 @@ public class SolicitudRegistroService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nueva-solicitud")
-	public SolicitudesDeRegistro crearPersona(@Valid @RequestBody SolicitudesDeRegistro inv){
+	public SolicitudesDeRegistro crearSolicitudUsuario(@Valid @RequestBody SolicitudesDeRegistro inv){
 		return solicitudUsuarioDAO.save(inv);
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* tomar todas las personas*/
+	/* tomar todas las Solicitudes de usuarios*/
 	@GetMapping("/solicitudes")
-	public List<SolicitudesDeRegistro> getAllPersons(){
+	public List<SolicitudesDeRegistro> getAllSolicitudesDeUsuario(){
 		 return solicitudUsuarioDAO.findAll();
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* obtener persona por ID*/
+	/* obtener solicitud por ID*/
 	@GetMapping ("/solicitud/{id}")
-	public ResponseEntity<SolicitudesDeRegistro> getPersonaById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<SolicitudesDeRegistro> getSolicitudesDeUsuarioById(@PathVariable(value="id") Long empid){
 		
 		SolicitudesDeRegistro ciu= solicitudUsuarioDAO.finOne(empid);
 		if(ciu==null){
@@ -53,9 +53,9 @@ public class SolicitudRegistroService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* actualizar persona por id*/
+	/* actualizar solicitud por id*/
 	@PutMapping("/solicitud/{id}")
-	public ResponseEntity<SolicitudesDeRegistro> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody SolicitudesDeRegistro solicitudDetalle){
+	public ResponseEntity<SolicitudesDeRegistro> updateSolicitudesDeUsuario(@PathVariable(value="id") Long empid, @Valid @RequestBody SolicitudesDeRegistro solicitudDetalle){
 		SolicitudesDeRegistro sol = solicitudUsuarioDAO.finOne(empid);
 		if(sol==null){
 			return ResponseEntity.notFound().build();
@@ -69,7 +69,7 @@ public class SolicitudRegistroService {
 	}
 	
 	@DeleteMapping("/solicitud/{id}")
-	public ResponseEntity<SolicitudesDeRegistro> deleteAdministrador(@PathVariable(value="id") Long empid){
+	public ResponseEntity<SolicitudesDeRegistro> deleteSolicitudesDeUsuario(@PathVariable(value="id") Long empid){
 		SolicitudesDeRegistro ciu=solicitudUsuarioDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.notFound().build();

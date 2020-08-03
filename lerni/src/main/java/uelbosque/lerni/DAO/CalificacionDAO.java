@@ -13,19 +13,19 @@ public class CalificacionDAO {
 	@Autowired
 	CalificacionRepository calificacionRepository;
 	
-	/* guardar Persona */
+	/* guardar calificacion */
 	public Calificacion save(Calificacion dir){
 		return  calificacionRepository.save(dir);
 	}
-	/* Buscar Persona */
+	/* Buscar calificacion */
 	public List<Calificacion> findAll(){
 		return calificacionRepository.findAll();
 	}
-	/* Buscar Persona por ID */
+	/* Buscar calificacion por ID */
 	public Calificacion finOne(Long empid){
 		return calificacionRepository.findOne(empid);
 	}
-	/* borrar Persona por ID*/
+	/* borrar calificacion por ID*/
 	
 	public void delete(Calificacion emp){
 		calificacionRepository.delete(emp);

@@ -30,19 +30,19 @@ public class CalificacionService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/calificacion")
-	public Calificacion crearPersona(@Valid @RequestBody Calificacion inv){
+	public Calificacion crearCalificacion(@Valid @RequestBody Calificacion inv){
 		return calificacionDAO.save(inv);
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* tomar todas las personas*/
+	/* tomar todas las calificaciones*/
 	@GetMapping("/calificaciones")
-	public List<Calificacion> getAllPersons(){
+	public List<Calificacion> getAllCalificaciones(){
 		 return calificacionDAO.findAll();
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* obtener persona por ID*/
+	/* obtener calificacion por ID*/
 	@GetMapping ("/calificaciones/{id}")
 	public ResponseEntity<Calificacion> getPersonaById(@PathVariable(value="id") Long empid){
 		
@@ -54,9 +54,9 @@ public class CalificacionService {
 	}
 	
 	@CrossOrigin(origins ="*")
-	/* actualizar persona por id*/
+	/* actualizar calificacion por id*/
 	@PutMapping("/calificacion/{id}")
-	public ResponseEntity<Calificacion> updatePersona(@PathVariable(value="id") Long empid, @Valid @RequestBody Calificacion calificacionDetalle){
+	public ResponseEntity<Calificacion> updateCalificacion(@PathVariable(value="id") Long empid, @Valid @RequestBody Calificacion calificacionDetalle){
 		Calificacion cal = calificacionDAO.finOne(empid);
 		if(cal==null){
 			return ResponseEntity.notFound().build();
@@ -73,7 +73,7 @@ public class CalificacionService {
 	}
 	
 	@DeleteMapping("/calificacion/{id}")
-	public ResponseEntity<Calificacion> deleteAdministrador(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Calificacion> deleteCalificacion(@PathVariable(value="id") Long empid){
 		Calificacion ciu=calificacionDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.notFound().build();
