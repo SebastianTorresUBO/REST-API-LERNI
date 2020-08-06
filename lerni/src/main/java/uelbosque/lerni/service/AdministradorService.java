@@ -33,15 +33,24 @@ public class AdministradorService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/administrador")
-	public Administrador crearAdministrador(@Valid @RequestBody Administrador inv){
-		return administradorDAO.save(inv);
+	public ResponseEntity<Administrador> crearAdministrador(@Valid @RequestBody Administrador inv){
+		if(inv!=null){
+			administradorDAO.save(inv);
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todos los administradores*/
 	@GetMapping("/administradores")
-	public List<Administrador> getAllAdministradores(){
-		 return administradorDAO.findAll();
+	public ResponseEntity<List<Administrador>> getAllAdministradores(){
+	   if(administradorDAO.findAll().equals(null)|| administradorDAO.findAll().size()==0){
+		   return ResponseEntity.noContent().build();
+	   } else {
+		   return ResponseEntity.ok().body(administradorDAO.findAll());
+	   }
 	}
 	
 	@CrossOrigin(origins ="*")
@@ -51,7 +60,7 @@ public class AdministradorService {
 		
 		Administrador ciu= administradorDAO.finOne(empid);
 		if(ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(ciu);
 	}
@@ -79,7 +88,7 @@ public class AdministradorService {
 	public ResponseEntity<Administrador> deleteAdministrador(@PathVariable(value="id") Long empid){
 		Administrador ciu=administradorDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		administradorDAO.delete(ciu);
 		return ResponseEntity.ok().build();

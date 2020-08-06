@@ -11,7 +11,7 @@ public class SolicitudesDeRegistro {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 	private int numDocumento;
 	private String nombres;
 	private String apellidos;
@@ -20,10 +20,10 @@ public class SolicitudesDeRegistro {
 	private String estado_de_Solicitud;
 	
 	
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public int getNumDocumento() {

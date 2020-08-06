@@ -9,16 +9,16 @@ import javax.persistence.Table;
 public class ActividadDisciplinaria {
 	
 	@Id
-	private int cod_actividad;
+	private Long cod_actividad;
 	private String nombre;
 	private String descripcion_actividad;
 	private int recompensa_por_cumplimiento_actividad;
 	private int id_calificacion;
 	
-	public int getCod_actividad() {
+	public Long getCod_actividad() {
 		return cod_actividad;
 	}
-	public void setCod_actividad(int cod_actividad) {
+	public void setCod_actividad(Long cod_actividad) {
 		this.cod_actividad = cod_actividad;
 	}
 	public String getNombre() {

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import uelbosque.lerni.DAO.UsuarioDAO;
-import uelbosque.lerni.model.Administrador;
 import uelbosque.lerni.model.Usuario;
 
 @RestController
@@ -29,25 +28,34 @@ public class UsuarioService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-usuario")
-	public Usuario crearPersona(@Valid @RequestBody Usuario inv){
-		return usuarioDAO.save(inv);
+	public ResponseEntity<Usuario> crearPersona(@Valid @RequestBody Usuario inv){
+		if(inv!=null){
+			usuarioDAO.save(inv);
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
+		
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todos los usuarios*/
 	@GetMapping("/solicitudes-usuario")
-	public List<Usuario> getAllUsuarios(){
-		 return usuarioDAO.findAll();
+	public ResponseEntity<List<Usuario>> getAllUsuarios(){
+		if(usuarioDAO.findAll().equals(null) || usuarioDAO.findAll().size()==0){
+			return ResponseEntity.noContent().build();
+		} else {
+			return ResponseEntity.ok().body(usuarioDAO.findAll());
+		} 
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* obtener usuario por ID*/
 	@GetMapping ("/usuario/{id}")
 	public ResponseEntity<Usuario> getUsuarioById(@PathVariable(value="id") Long empid){
-		
 		Usuario ciu= usuarioDAO.finOne(empid);
 		if(ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(ciu);
 	}
@@ -73,7 +81,7 @@ public class UsuarioService {
 	public ResponseEntity<Usuario> deleteUsuario(@PathVariable(value="id") Long empid){
 		Usuario ciu=usuarioDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		usuarioDAO.delete(ciu);
 		return ResponseEntity.ok().build();

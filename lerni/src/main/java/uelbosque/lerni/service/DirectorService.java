@@ -32,15 +32,24 @@ public class DirectorService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-director")
-	public Director crearDirector(@Valid @RequestBody Director inv){
-		return directorDAO.save(inv);
+	public ResponseEntity<Director> crearDirector(@Valid @RequestBody Director inv){
+		if(inv!=null){
+			directorDAO.save(inv);
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.badRequest().build(); 
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todos los directores*/
 	@GetMapping("/directores")
-	public List<Director> getAllDirectores(){
-		 return directorDAO.findAll();
+	public ResponseEntity<List<Director>> getAllDirectores(){
+		if (directorDAO.findAll().equals(null)|| directorDAO.findAll().size()==0){
+			return ResponseEntity.noContent().build();
+		} else{ 
+			return ResponseEntity.ok().body(directorDAO.findAll());
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
@@ -50,7 +59,7 @@ public class DirectorService {
 		
 		Director ciu= directorDAO.finOne(empid);
 		if(ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(ciu);
 	}
@@ -78,7 +87,7 @@ public class DirectorService {
 	public ResponseEntity<Director> deleteDirector(@PathVariable(value="id") Long empid){
 		Director ciu=directorDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		directorDAO.delete(ciu);
 		return ResponseEntity.ok().build();

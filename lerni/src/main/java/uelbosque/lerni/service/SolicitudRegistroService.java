@@ -29,15 +29,25 @@ public class SolicitudRegistroService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nueva-solicitud")
-	public SolicitudesDeRegistro crearSolicitudUsuario(@Valid @RequestBody SolicitudesDeRegistro inv){
-		return solicitudUsuarioDAO.save(inv);
+	public ResponseEntity<SolicitudesDeRegistro> crearSolicitudUsuario(@Valid @RequestBody SolicitudesDeRegistro inv){
+		if(inv!=null){
+		  solicitudUsuarioDAO.save(inv);
+		  return ResponseEntity.ok().build();
+		} else {
+		  return ResponseEntity.badRequest().build();	
+		}
+		
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todas las Solicitudes de usuarios*/
 	@GetMapping("/solicitudes")
-	public List<SolicitudesDeRegistro> getAllSolicitudesDeUsuario(){
-		 return solicitudUsuarioDAO.findAll();
+	public ResponseEntity<List<SolicitudesDeRegistro>> getAllSolicitudesDeUsuario(){
+		if(solicitudUsuarioDAO.findAll().equals(null)||solicitudUsuarioDAO.findAll().size()==0){ 
+			return ResponseEntity.noContent().build();
+		} else {
+			return ResponseEntity.ok().body(solicitudUsuarioDAO.findAll());
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
@@ -47,7 +57,7 @@ public class SolicitudRegistroService {
 		
 		SolicitudesDeRegistro ciu= solicitudUsuarioDAO.finOne(empid);
 		if(ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(ciu);
 	}
@@ -72,7 +82,7 @@ public class SolicitudRegistroService {
 	public ResponseEntity<SolicitudesDeRegistro> deleteSolicitudesDeUsuario(@PathVariable(value="id") Long empid){
 		SolicitudesDeRegistro ciu=solicitudUsuarioDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		solicitudUsuarioDAO.delete(ciu);
 		return ResponseEntity.ok().build();

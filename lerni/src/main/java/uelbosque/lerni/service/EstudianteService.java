@@ -30,15 +30,24 @@ public class EstudianteService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-estudiante")
-	public Estudiante crearEstudiante(@Valid @RequestBody Estudiante inv){
-		return estudianteDAO.save(inv);
+	public ResponseEntity<Estudiante> crearEstudiante(@Valid @RequestBody Estudiante inv){
+		if(inv!=null){
+			estudianteDAO.save(inv);
+			return ResponseEntity.ok().build();
+		}else{
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todos los estudiantes*/
 	@GetMapping("/estudiantes")
-	public List<Estudiante> getAllEstudiantes(){
-		 return estudianteDAO.findAll();
+	public ResponseEntity<List<Estudiante>> getAllEstudiantes(){
+		 if(estudianteDAO.findAll().equals(null)||estudianteDAO.findAll().size()==0){
+			return ResponseEntity.noContent().build();
+		 } else {
+			return ResponseEntity.ok().body(estudianteDAO.findAll());
+		 }
 	}
 	
 	@CrossOrigin(origins ="*")
@@ -48,7 +57,7 @@ public class EstudianteService {
 		
 		Estudiante ciu= estudianteDAO.finOne(empid);
 		if(ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(ciu);
 	}
@@ -79,7 +88,7 @@ public class EstudianteService {
 	public ResponseEntity<Estudiante> deleteEstudiante(@PathVariable(value="id") Long empid){
 		Estudiante ciu=estudianteDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		estudianteDAO.delete(ciu);
 		return ResponseEntity.ok().build();

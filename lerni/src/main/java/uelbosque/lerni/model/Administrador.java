@@ -9,14 +9,14 @@ import javax.persistence.Table;
 public class Administrador {
 	
 	@Id
-	private int cedula;
+	private Long cedula;
 	private String nombres;
 	private String apellidos;
 	private int cod_usuario;
-	public int getCedula() {
+	public Long getCedula() {
 		return cedula;
 	}
-	public void setCedula(int cedula) {
+	public void setCedula(Long cedula) {
 		this.cedula = cedula;
 	}
 	public String getNombres() {

@@ -32,16 +32,23 @@ public class ProfesorService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-profesor")
-	public Profesor crearProfesor(@Valid @RequestBody Profesor pro){
-		return profesorDAO.save(pro);
+	public ResponseEntity<Profesor> crearProfesor(@Valid @RequestBody Profesor pro){
+		if(pro!=null){
+			profesorDAO.save(pro);
+			return ResponseEntity.ok().build();
+		}else{
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todas las profesor*/
 	@GetMapping("/profesores")
-	public List<Profesor> getAllProfesores(){
-		
-			return profesorDAO.findAll();
+	public ResponseEntity<List<Profesor>> getAllProfesores(){
+		if(profesorDAO.findAll().equals(null)|| profesorDAO.findAll().size()==0){
+			return ResponseEntity.noContent().build();
+		}	
+			return ResponseEntity.ok().body(profesorDAO.findAll());
 		
 	}
 	
@@ -52,7 +59,7 @@ public class ProfesorService {
 		
 		Profesor pro= profesorDAO.finOne(empid);
 		if(pro==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(pro);
 	}
@@ -65,7 +72,6 @@ public class ProfesorService {
 		if(pro==null){
 			return ResponseEntity.notFound().build();
 		}
-		
 		pro.setCedula(profesorDetalle.getCedula());
 		pro.setNombres(profesorDetalle.getNombres());
 		pro.setApellidos(profesorDetalle.getApellidos());
@@ -85,7 +91,7 @@ public class ProfesorService {
 	public ResponseEntity<Profesor> deleteProfesor(@PathVariable(value="id") Long empid){
 		Profesor ciu=profesorDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		profesorDAO.delete(ciu);
 		return ResponseEntity.ok().build();

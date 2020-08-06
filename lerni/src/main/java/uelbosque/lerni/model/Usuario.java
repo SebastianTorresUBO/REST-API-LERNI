@@ -11,16 +11,16 @@ public class Usuario {
 	
 	@Id
 	@GeneratedValue
-	private int cod_usuario;
+	private Long cod_usuario;
 	private int cod_tipo_usuario;
 	private String nombres;
 	private String apellidos;
 	
 	
-	public int getCod_usuario() {
+	public Long getCod_usuario() {
 		return cod_usuario;
 	}
-	public void setCod_usuario(int cod_usuario) {
+	public void setCod_usuario(Long cod_usuario) {
 		this.cod_usuario = cod_usuario;
 	}
 	public int getCod_tipo_usuario() {

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 public class Profesor {
 	
 	@Id
-	private int cedula;
+	private Long cedula;
 	private String nombres;
 	private String apellidos;
 	private String celular;
@@ -18,10 +18,10 @@ public class Profesor {
 	private int codigo_curso;
 	private int cod_actividad_asignada;
 	private int cod_usuario;
-	public int getCedula() {
+	public Long getCedula() {
 		return cedula;
 	}
-	public void setCedula(int cedula) {
+	public void setCedula(Long cedula) {
 		this.cedula = cedula;
 	}
 	public String getNombres() {

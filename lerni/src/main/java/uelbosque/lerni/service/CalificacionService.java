@@ -30,15 +30,25 @@ public class CalificacionService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/calificacion")
-	public Calificacion crearCalificacion(@Valid @RequestBody Calificacion inv){
-		return calificacionDAO.save(inv);
+	public ResponseEntity<Calificacion> crearCalificacion(@Valid @RequestBody Calificacion inv){
+		if(inv!=null){
+			calificacionDAO.save(inv);
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
+		
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todas las calificaciones*/
 	@GetMapping("/calificaciones")
-	public List<Calificacion> getAllCalificaciones(){
-		 return calificacionDAO.findAll();
+	public ResponseEntity<List<Calificacion>> getAllCalificaciones(){
+		if(calificacionDAO.findAll().equals(null)|| calificacionDAO.findAll().size()==0){
+			return ResponseEntity.noContent().build();
+		}else{
+			return ResponseEntity.ok().body(calificacionDAO.findAll());
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
@@ -48,7 +58,7 @@ public class CalificacionService {
 		
 		Calificacion ciu= calificacionDAO.finOne(empid);
 		if(ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(ciu);
 	}
@@ -76,7 +86,7 @@ public class CalificacionService {
 	public ResponseEntity<Calificacion> deleteCalificacion(@PathVariable(value="id") Long empid){
 		Calificacion ciu=calificacionDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		calificacionDAO.delete(ciu);
 		return ResponseEntity.ok().build();

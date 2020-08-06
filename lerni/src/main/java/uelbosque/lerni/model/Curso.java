@@ -9,16 +9,16 @@ import javax.persistence.Table;
 public class Curso {
 	
 	@Id
-	private int codigo_curso;
+	private Long codigo_curso;
 	private String nombre_curso;
 	private int cod_estudiante;
 	private int cedula_profesor;
 	private int numero_estudiantes;
 	
-	public int getCodigo_curso() {
+	public Long getCodigo_curso() {
 		return codigo_curso;
 	}
-	public void setCodigo_curso(int codigo_curso) {
+	public void setCodigo_curso(Long codigo_curso) {
 		this.codigo_curso = codigo_curso;
 	}
 	public String getNombre_curso() {

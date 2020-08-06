@@ -9,16 +9,16 @@ import javax.persistence.Table;
 public class Padre_tutor {
 
 	@Id
-	private int cedula;
+	private Long cedula;
 	private String nombre;
 	private String apellidos;
 	private int cod_usuario;
 	private int id_estudiante;
 	
-	public int getCedula() {
+	public Long getCedula() {
 		return cedula;
 	}
-	public void setCedula(int cedula) {
+	public void setCedula(Long cedula) {
 		this.cedula = cedula;
 	}
 	public String getNombre() {

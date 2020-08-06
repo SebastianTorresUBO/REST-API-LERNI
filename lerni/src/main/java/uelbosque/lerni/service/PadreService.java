@@ -29,15 +29,25 @@ public class PadreService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-padre")
-	public Padre_tutor crearPersona(@Valid @RequestBody Padre_tutor pro){
-		return padre_tutorDAO.save(pro);
+	public ResponseEntity<Padre_tutor> crearPersona(@Valid @RequestBody Padre_tutor pro){
+		if(pro!=null){
+		  padre_tutorDAO.save(pro);
+		  return ResponseEntity.ok().build();
+		} else{
+		  return ResponseEntity.badRequest().build();
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todos los padres*/
 	@GetMapping("/padres")
-	public List<Padre_tutor> getAllPadres(){
-			return padre_tutorDAO.findAll();
+	public ResponseEntity<List<Padre_tutor>> getAllPadres(){
+		if(padre_tutorDAO.findAll().equals(null)||padre_tutorDAO.findAll().size()==0){
+			return ResponseEntity.noContent().build();
+		}else{
+			return ResponseEntity.ok().body(padre_tutorDAO.findAll());
+		}
+	
 	}
 	
 	@CrossOrigin(origins ="*")
@@ -47,7 +57,7 @@ public class PadreService {
 		
 		Padre_tutor pro= padre_tutorDAO.finOne(empid);
 		if(pro==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(pro);
 	}
@@ -76,7 +86,7 @@ public class PadreService {
 	public ResponseEntity<Padre_tutor> deletePadre(@PathVariable(value="id") Long empid){
 		Padre_tutor ciu=padre_tutorDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		padre_tutorDAO.delete(ciu);
 		return ResponseEntity.ok().build();

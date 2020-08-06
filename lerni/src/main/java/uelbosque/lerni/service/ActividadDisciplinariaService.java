@@ -32,18 +32,20 @@ public class ActividadDisciplinariaService {
 		if(!inv.equals(null)){
 			actividadDisciplinariaDAO.save(inv);
 			return ResponseEntity.ok().body(inv);
-		}
-		
+		} else {
 			return ResponseEntity.badRequest().build();
-		
-		 
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todas las actividades*/
 	@GetMapping("/actividades")
-	public List<ActividadDisciplinaria> getAllActividades(){
-		 return actividadDisciplinariaDAO.findAll();
+	public ResponseEntity<List<ActividadDisciplinaria>> getAllActividades(){
+		if(actividadDisciplinariaDAO.findAll().equals(null)||actividadDisciplinariaDAO.findAll().size()==0){
+			return ResponseEntity.noContent().build();
+		} else {
+		    return ResponseEntity.ok().body(actividadDisciplinariaDAO.findAll());
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
@@ -53,7 +55,7 @@ public class ActividadDisciplinariaService {
 		
 		ActividadDisciplinaria ciu= actividadDisciplinariaDAO.finOne(empid);
 		if(ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(ciu);
 	}
@@ -82,7 +84,7 @@ public class ActividadDisciplinariaService {
 	public ResponseEntity<ActividadDisciplinaria> deleteActividad(@PathVariable(value="id") Long empid){
 		ActividadDisciplinaria ciu=actividadDisciplinariaDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		actividadDisciplinariaDAO.delete(ciu);
 		return ResponseEntity.ok().build();

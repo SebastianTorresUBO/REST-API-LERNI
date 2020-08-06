@@ -30,15 +30,24 @@ public class Kpi_indicadores_rendimientoService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-kpi")
-	public Kpi_indicadores_rendimiento crearKpi(@Valid @RequestBody Kpi_indicadores_rendimiento pro){
-		return kpi_indicadores_rendimientoDAO.save(pro);
+	public ResponseEntity<Kpi_indicadores_rendimiento> crearKpi(@Valid @RequestBody Kpi_indicadores_rendimiento pro){
+		if(pro!=null){
+			kpi_indicadores_rendimientoDAO.save(pro);
+			return ResponseEntity.ok().build();
+		} else {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todos los kpi*/
 	@GetMapping("/kpis")
-	public List<Kpi_indicadores_rendimiento> getAllKpis(){
-			return kpi_indicadores_rendimientoDAO.findAll();
+	public ResponseEntity<List<Kpi_indicadores_rendimiento>> getAllKpis(){
+		if(kpi_indicadores_rendimientoDAO.findAll().equals(null) || kpi_indicadores_rendimientoDAO.findAll().size()==0){
+			return ResponseEntity.noContent().build();
+		} else {	
+			return ResponseEntity.ok().body(kpi_indicadores_rendimientoDAO.findAll());
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
@@ -48,7 +57,7 @@ public class Kpi_indicadores_rendimientoService {
 		
 		Kpi_indicadores_rendimiento pro= kpi_indicadores_rendimientoDAO.finOne(empid);
 		if(pro==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(pro);
 	}
@@ -61,7 +70,6 @@ public class Kpi_indicadores_rendimientoService {
 		if(kpi==null){
 			return ResponseEntity.notFound().build();
 		}
-		
 		kpi.setId_kpi(kpiDetalle.getId_kpi());
 		kpi.setId_estudiante(kpiDetalle.getId_estudiante());
 		kpi.setCalificacion_actividad(kpiDetalle.getCalificacion_actividad());
@@ -69,14 +77,14 @@ public class Kpi_indicadores_rendimientoService {
 		kpi.setFecha_fin(kpiDetalle.getFecha_fin());
 		
 		Kpi_indicadores_rendimiento actualizar= kpi_indicadores_rendimientoDAO.save(kpi);
-		return ResponseEntity.ok().body(kpi);
-		
+		return ResponseEntity.ok().body(kpi);	
 	}
+	
 	@DeleteMapping("/kpi/{id}")
 	public ResponseEntity<Kpi_indicadores_rendimiento> deleteKpis(@PathVariable(value="id") Long empid){
 		Kpi_indicadores_rendimiento ciu=kpi_indicadores_rendimientoDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		kpi_indicadores_rendimientoDAO.delete(ciu);
 		return ResponseEntity.ok().build();

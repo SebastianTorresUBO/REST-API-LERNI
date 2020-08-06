@@ -31,15 +31,24 @@ public class CursoService {
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/curso")
-	public Curso crearCurso(@Valid @RequestBody Curso inv){
-		return cursoDAO.save(inv);
+	public ResponseEntity<Curso> crearCurso(@Valid @RequestBody Curso inv){
+		if(inv!=null){
+			cursoDAO.save(inv);
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.badRequest().build();
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todos los cursos*/
 	@GetMapping("/cursos")
-	public List<Curso> getAllCursos(){
-		 return cursoDAO.findAll();
+	public ResponseEntity<List<Curso>> getAllCursos(){
+		if(cursoDAO.findAll().equals(null)||cursoDAO.findAll().size()==0){
+			return ResponseEntity.noContent().build();
+		} else {
+			return ResponseEntity.ok().body(cursoDAO.findAll());
+
+		}
 	}
 	
 	@CrossOrigin(origins ="*")
@@ -49,7 +58,7 @@ public class CursoService {
 		
 		Curso ciu= cursoDAO.finOne(empid);
 		if(ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok().body(ciu);
 	}
@@ -78,7 +87,7 @@ public class CursoService {
 	public ResponseEntity<Curso> deleteCurso(@PathVariable(value="id") Long empid){
 		Curso ciu=cursoDAO.finOne(empid);
 		if (ciu==null){
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.noContent().build();
 		}
 		cursoDAO.delete(ciu);
 		return ResponseEntity.ok().build();

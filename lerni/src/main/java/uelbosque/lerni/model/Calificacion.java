@@ -10,15 +10,15 @@ import javax.persistence.Table;
 public class Calificacion {
 
 	@Id
-	private int id_calificacion;
+	private Long id_calificacion;
 	private int cedula_profesor;
 	private int cod_actividad;
 	private int valor;
 	
-	public int getId_calificacion() {
+	public Long getId_calificacion() {
 		return id_calificacion;
 	}
-	public void setId_calificacion(int id_calificacion) {
+	public void setId_calificacion(Long id_calificacion) {
 		this.id_calificacion = id_calificacion;
 	}
 	public int getCedula_profesor() {
