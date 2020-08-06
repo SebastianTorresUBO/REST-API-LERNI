@@ -30,7 +30,7 @@ public class SolicitudRegistroService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nueva-solicitud")
 	public ResponseEntity<SolicitudesDeRegistro> crearSolicitudUsuario(@Valid @RequestBody SolicitudesDeRegistro inv){
-		if(inv!=null){
+		if(!inv.equals(null)){
 		  solicitudUsuarioDAO.save(inv);
 		  return ResponseEntity.ok().build();
 		} else {

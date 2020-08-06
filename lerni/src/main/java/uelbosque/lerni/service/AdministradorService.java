@@ -34,7 +34,7 @@ public class AdministradorService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/administrador")
 	public ResponseEntity<Administrador> crearAdministrador(@Valid @RequestBody Administrador inv){
-		if(inv!=null){
+		if(!inv.equals(null)){
 			administradorDAO.save(inv);
 			return ResponseEntity.ok().build();
 		} else {

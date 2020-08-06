@@ -31,7 +31,7 @@ public class EstudianteService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-estudiante")
 	public ResponseEntity<Estudiante> crearEstudiante(@Valid @RequestBody Estudiante inv){
-		if(inv!=null){
+		if(!inv.equals(null)){
 			estudianteDAO.save(inv);
 			return ResponseEntity.ok().build();
 		}else{

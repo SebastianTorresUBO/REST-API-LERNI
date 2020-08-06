@@ -29,7 +29,7 @@ public class UsuarioService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-usuario")
 	public ResponseEntity<Usuario> crearPersona(@Valid @RequestBody Usuario inv){
-		if(inv!=null){
+		if(!inv.equals(null)){
 			usuarioDAO.save(inv);
 			return ResponseEntity.ok().build();
 		} else {

@@ -32,7 +32,7 @@ public class CursoService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/curso")
 	public ResponseEntity<Curso> crearCurso(@Valid @RequestBody Curso inv){
-		if(inv!=null){
+		if(!inv.equals(null)){
 			cursoDAO.save(inv);
 			return ResponseEntity.ok().build();
 		}

@@ -31,7 +31,7 @@ public class CalificacionService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/calificacion")
 	public ResponseEntity<Calificacion> crearCalificacion(@Valid @RequestBody Calificacion inv){
-		if(inv!=null){
+		if(!inv.equals(null)){
 			calificacionDAO.save(inv);
 			return ResponseEntity.ok().build();
 		} else {

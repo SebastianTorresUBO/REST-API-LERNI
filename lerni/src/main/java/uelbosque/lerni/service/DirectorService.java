@@ -33,7 +33,7 @@ public class DirectorService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-director")
 	public ResponseEntity<Director> crearDirector(@Valid @RequestBody Director inv){
-		if(inv!=null){
+		if(!inv.equals(null)){
 			directorDAO.save(inv);
 			return ResponseEntity.ok().build();
 		} else {

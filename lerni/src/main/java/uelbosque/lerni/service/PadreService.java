@@ -30,7 +30,7 @@ public class PadreService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-padre")
 	public ResponseEntity<Padre_tutor> crearPersona(@Valid @RequestBody Padre_tutor pro){
-		if(pro!=null){
+		if(!pro.equals(null)){
 		  padre_tutorDAO.save(pro);
 		  return ResponseEntity.ok().build();
 		} else{

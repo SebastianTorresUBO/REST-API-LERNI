@@ -31,7 +31,7 @@ public class Kpi_indicadores_rendimientoService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-kpi")
 	public ResponseEntity<Kpi_indicadores_rendimiento> crearKpi(@Valid @RequestBody Kpi_indicadores_rendimiento pro){
-		if(pro!=null){
+		if(!pro.equals(null)){
 			kpi_indicadores_rendimientoDAO.save(pro);
 			return ResponseEntity.ok().build();
 		} else {

@@ -33,7 +33,7 @@ public class ProfesorService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-profesor")
 	public ResponseEntity<Profesor> crearProfesor(@Valid @RequestBody Profesor pro){
-		if(pro!=null){
+		if(!pro.equals(null)){
 			profesorDAO.save(pro);
 			return ResponseEntity.ok().build();
 		}else{
