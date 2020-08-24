@@ -75,12 +75,12 @@ public class ProfesorService {
 		pro.setCedula(profesorDetalle.getCedula());
 		pro.setNombres(profesorDetalle.getNombres());
 		pro.setApellidos(profesorDetalle.getApellidos());
-		pro.setCelular(profesorDetalle.getCelular());
 		pro.setTitulo_profesional(profesorDetalle.getTitulo_profesional());
 		pro.setId_calificacion(profesorDetalle.getId_calificacion());
 		pro.setCodigo_curso(profesorDetalle.getCodigo_curso());
 		pro.setCod_actividad_asignada(profesorDetalle.getCod_actividad_asignada());
 		pro.setCod_usuario(profesorDetalle.getCod_usuario());
+		pro.setUniversidad(profesorDetalle.getUniversidad());
 		
 		Profesor actualizar= profesorDAO.save(pro);
 		return ResponseEntity.ok().body(pro);

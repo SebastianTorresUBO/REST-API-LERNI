@@ -15,6 +15,10 @@ public class Usuario {
 	private int cod_tipo_usuario;
 	private String nombres;
 	private String apellidos;
+	private String username;
+	private String password;
+	private String institucion_educativa_vinculada;
+	
 	
 	
 	public Long getCod_usuario() {
@@ -41,6 +45,29 @@ public class Usuario {
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public void setCod_tipo_usuario(int cod_tipo_usuario) {
+		this.cod_tipo_usuario = cod_tipo_usuario;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getInstitucion_educativa_vinculada() {
+		return institucion_educativa_vinculada;
+	}
+	public void setInstitucion_educativa_vinculada(String institucion_educativa_vinculada) {
+		this.institucion_educativa_vinculada = institucion_educativa_vinculada;
+	}
+	
+	
 	
 	
 		

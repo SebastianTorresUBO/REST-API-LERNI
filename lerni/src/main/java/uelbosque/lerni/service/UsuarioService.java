@@ -40,7 +40,7 @@ public class UsuarioService {
 	
 	@CrossOrigin(origins ="*")
 	/* tomar todos los usuarios*/
-	@GetMapping("/solicitudes-usuario")
+	@GetMapping("/usuarios")
 	public ResponseEntity<List<Usuario>> getAllUsuarios(){
 		if(usuarioDAO.findAll().equals(null) || usuarioDAO.findAll().size()==0){
 			return ResponseEntity.noContent().build();
@@ -72,6 +72,9 @@ public class UsuarioService {
 		sol.setCod_tip_usuario(usuarioDetalle.getCod_tipo_usuario());
 		sol.setNombres(usuarioDetalle.getNombres());
 		sol.setApellidos(usuarioDetalle.getApellidos());
+		sol.setUsername(usuarioDetalle.getUsername());
+		sol.setPassword(usuarioDetalle.getPassword());
+		sol.setInstitucion_educativa_vinculada(usuarioDetalle.getInstitucion_educativa_vinculada());
 		
 		Usuario actualizar= usuarioDAO.save(sol);
 		return ResponseEntity.ok().body(sol);

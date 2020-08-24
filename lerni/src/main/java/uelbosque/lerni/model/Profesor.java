@@ -12,12 +12,13 @@ public class Profesor {
 	private Long cedula;
 	private String nombres;
 	private String apellidos;
-	private String celular;
 	private String titulo_profesional;
 	private int id_calificacion;
 	private int codigo_curso;
 	private int cod_actividad_asignada;
 	private int cod_usuario;
+	private String universidad;
+	
 	public Long getCedula() {
 		return cedula;
 	}
@@ -35,12 +36,6 @@ public class Profesor {
 	}
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
-	}
-	public String getCelular() {
-		return celular;
-	}
-	public void setCelular(String celular) {
-		this.celular = celular;
 	}
 	public String getTitulo_profesional() {
 		return titulo_profesional;
@@ -72,5 +67,12 @@ public class Profesor {
 	public void setCod_usuario(int cod_usuario) {
 		this.cod_usuario = cod_usuario;
 	}
+	public String getUniversidad() {
+		return universidad;
+	}
+	public void setUniversidad(String universidad) {
+		this.universidad = universidad;
+	}
+	
 	
 }

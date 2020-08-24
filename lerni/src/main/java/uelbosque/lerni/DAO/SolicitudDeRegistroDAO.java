@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uelbosque.lerni.model.SolicitudesDeRegistro;
+import uelbosque.lerni.repository.SolicitudUsuarioRepositoryJPQL;
 import uelbosque.lerni.repository.SolicitudesDeRegistroRepository;
 
 @Service
@@ -14,6 +15,8 @@ public class SolicitudDeRegistroDAO {
 	@Autowired
 	SolicitudesDeRegistroRepository solicitudUsuarioRepository;
 	
+	@Autowired
+	SolicitudUsuarioRepositoryJPQL solicitudUsuarioRepositoryJPQL;
 	
 	/* guardar Solicitud */
 	public SolicitudesDeRegistro save(SolicitudesDeRegistro sol){
@@ -31,6 +34,10 @@ public class SolicitudDeRegistroDAO {
 	
 	public void delete(SolicitudesDeRegistro emp){
 		solicitudUsuarioRepository.delete(emp);
+	}
+	/* Buscar Solicitud por username */
+	public SolicitudesDeRegistro finOneByUsername(String username){
+		return solicitudUsuarioRepositoryJPQL.findRegisterRequest(username);
 	}
 	
 }

@@ -2,6 +2,7 @@ package uelbosque.lerni.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,7 +11,7 @@ import javax.persistence.Table;
 public class SolicitudesDeRegistro {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.AUTO)
 	private Long id;
 	private int numDocumento;
 	private String nombres;
@@ -18,6 +19,10 @@ public class SolicitudesDeRegistro {
 	private String rol;
 	private String institucionEducativaVinculada;
 	private String estado_de_Solicitud;
+	private String username;
+	private String password;
+	private String titulo_profesional;
+	private String universidad;
 	
 	
 	public Long getId() {
@@ -62,6 +67,31 @@ public class SolicitudesDeRegistro {
 	public void setEstadoSolicitud(String estado_de_Solicitud) {
 		this.estado_de_Solicitud = estado_de_Solicitud;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getTitulo_profesional() {
+		return titulo_profesional;
+	}
+	public void setTitulo_profesional(String titulo_profesional) {
+		this.titulo_profesional = titulo_profesional;
+	}
+	public String getUniversidad() {
+		return universidad;
+	}
+	public void setUniversidad(String universidad) {
+		this.universidad = universidad;
+	}
+	
 			
 	
 	
