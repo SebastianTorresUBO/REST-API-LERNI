@@ -59,20 +59,23 @@ public class SolicitudRegistroService {
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nueva-solicitud")
 	public ResponseEntity<SolicitudesDeRegistro> crearSolicitudUsuario(@Valid @RequestBody SolicitudesDeRegistro inv){
-	/*	SolicitudesDeRegistro existUsername=solicitudUsuarioDAO.finOneByUsername(inv.getUsername());
-		if(!existUsername.equals(null)) {
-			if(inv.getUsername().equalsIgnoreCase(existUsername.getUsername())) {
-				SolicitudesDeRegistro solicitudesDeRegistro = new SolicitudesDeRegistro();
-				solicitudesDeRegistro.setUsername("El Username ingresado ya esta siendo utilizado en Lerni");
-				return ResponseEntity.badRequest().body(solicitudesDeRegistro);
+		SolicitudesDeRegistro existUsername=solicitudUsuarioDAO.finOneByUsername(inv.getUsername());
+		try {
+			if(!existUsername.equals(null)) {
+				if(existUsername.getUsername().equals(inv.getUsername())) {
+					return ResponseEntity.status(409).build();
+				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	*/
 		if(!inv.equals(null)){
+			
 		  String encryptedPassword = hashPassword(inv.getPassword());
 		  inv.setPassword(encryptedPassword);
 		  solicitudUsuarioDAO.save(inv);
 		  return ResponseEntity.ok().build();
+		  
 		} else {
 		  return ResponseEntity.badRequest().build();	
 		}
