@@ -76,6 +76,7 @@ public class PadreService {
 		pad.setApellidos(padreDetalle.getApellidos());
 		pad.setCod_usuario(padreDetalle.getCod_usuario());
 		pad.setId_estudiante(padreDetalle.getId_estudiante());
+		pad.setCorreo_electronico(padreDetalle.getCorreo_electronico());
 		
 		Padre_tutor actualizar= padre_tutorDAO.save(pad);
 		return ResponseEntity.ok().body(pad);

@@ -14,6 +14,7 @@ public class Padre_tutor {
 	private String apellidos;
 	private int cod_usuario;
 	private int id_estudiante;
+	private String correo_electronico;
 	
 	public Long getCedula() {
 		return cedula;
@@ -44,6 +45,12 @@ public class Padre_tutor {
 	}
 	public void setId_estudiante(int id_estudiante) {
 		this.id_estudiante = id_estudiante;
+	}
+	public String getCorreo_electronico() {
+		return correo_electronico;
+	}
+	public void setCorreo_electronico(String correo_electronico) {
+		this.correo_electronico = correo_electronico;
 	}
 	
 	

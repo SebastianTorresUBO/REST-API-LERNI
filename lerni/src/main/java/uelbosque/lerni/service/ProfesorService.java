@@ -81,6 +81,7 @@ public class ProfesorService {
 		pro.setCod_actividad_asignada(profesorDetalle.getCod_actividad_asignada());
 		pro.setCod_usuario(profesorDetalle.getCod_usuario());
 		pro.setUniversidad(profesorDetalle.getUniversidad());
+		pro.setCorreo_electronico(profesorDetalle.getCorreo_electronico());
 		
 		Profesor actualizar= profesorDAO.save(pro);
 		return ResponseEntity.ok().body(pro);

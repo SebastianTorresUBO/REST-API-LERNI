@@ -13,6 +13,7 @@ public class Director {
 	private String nombres;
 	private String apellidos;
 	private int cod_usuario;
+	private String correo_electronico;
 	
 	public Long getCedula() {
 		return cedula;
@@ -38,6 +39,13 @@ public class Director {
 	public void setCod_usuario(int cod_usuario) {
 		this.cod_usuario = cod_usuario;
 	}
+	public String getCorreo_electronico() {
+		return correo_electronico;
+	}
+	public void setCorreo_electronico(String correo_electronico) {
+		this.correo_electronico = correo_electronico;
+	}
+	
 	
 	
 }

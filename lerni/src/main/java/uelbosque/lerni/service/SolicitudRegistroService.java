@@ -24,6 +24,7 @@ import uelbosque.lerni.DAO.Padre_tutorDAO;
 import uelbosque.lerni.DAO.ProfesorDAO;
 import uelbosque.lerni.DAO.SolicitudDeRegistroDAO;
 import uelbosque.lerni.DAO.UsuarioDAO;
+import uelbosque.lerni.email.HtmlEmailSender;
 import uelbosque.lerni.model.Administrador;
 import uelbosque.lerni.model.Director;
 import uelbosque.lerni.model.Padre_tutor;
@@ -178,7 +179,9 @@ public class SolicitudRegistroService {
 					dir.setNombres(usu.getNombres());
 					dir.setApellidos(usu.getApellidos());
 					dir.setCod_usuario(usuario.getCod_usuario().intValue());
+					dir.setCorreo_electronico(solicitudDetalle.getCorreo_electronico());
 					directorDao.save(dir);	
+					sendConfirmationEmail(solicitudDetalle.getNombres(), solicitudDetalle.getCorreo_electronico());
 				break;	
 				case 2:
 					pro.setCedula(Long.valueOf(solicitudDetalle.getNumDocumento()));
@@ -187,21 +190,27 @@ public class SolicitudRegistroService {
 					pro.setTitulo_profesional(solicitudDetalle.getTitulo_profesional());
 					pro.setUniversidad(solicitudDetalle.getUniversidad());
 					pro.setCod_usuario(usuario.getCod_usuario().intValue());
+					pro.setCorreo_electronico(solicitudDetalle.getCorreo_electronico());
 					profesorDAO.save(pro);
+					sendConfirmationEmail(solicitudDetalle.getNombres(), solicitudDetalle.getCorreo_electronico());
 				break;
 				case 3:
 					par_tut.setCedula(Long.valueOf(solicitudDetalle.getNumDocumento()));
 					par_tut.setNombre(usu.getNombres());
 					par_tut.setApellidos(usu.getApellidos());
 					par_tut.setCod_usuario(usuario.getCod_usuario().intValue());
+					par_tut.setCorreo_electronico(solicitudDetalle.getCorreo_electronico());
 					padre_tutorDAO.save(par_tut);
+					sendConfirmationEmail(solicitudDetalle.getNombres(), solicitudDetalle.getCorreo_electronico());
 				break;	
 				case 4:
 					admin.setCedula(Long.valueOf(solicitudDetalle.getNumDocumento()));
 					admin.setNombres(usu.getNombres());
 					admin.setApellidos(usu.getApellidos());
 					admin.setCod_usuario(usuario.getCod_usuario().intValue());
+					admin.setCorreo_electronico(solicitudDetalle.getCorreo_electronico());
 					administradorDao.save(admin);
+					sendConfirmationEmail(solicitudDetalle.getNombres(), solicitudDetalle.getCorreo_electronico());
 				break;	
 			}
 			return ResponseEntity.ok().body(sol);
@@ -230,6 +239,76 @@ public class SolicitudRegistroService {
 
 		return(hashed_password);
 	}
+	
+	public void sendConfirmationEmail(String nombre, String correoDestino) {
+        // SMTP server information
+        String host = "smtp.gmail.com";
+        String port = "587";
+        String mailFrom = "lerniapp@gmail.com";
+        String password = "Milanesa22";
+ 
+        // outgoing message information
+        String mailTo = correoDestino;
+        String subject = "LERNI - Registro exitoso" + " Bienvenid@ "+ nombre;
+ 
+        // message contains HTML markups
+        String message = "<!DOCTYPE html>\r\n" + 
+        		"<html>\r\n" + 
+        		"<style>\r\n" + 
+        		"	#h1{\r\n" + 
+        		"		margin-top: 22%;\r\n" + 
+        		"		 font-family: cursive;\r\n" + 
+        		"		 color:white;\r\n" + 
+        		"	}\r\n" + 
+        		"	#h3{\r\n" + 
+        		"		font-family: cursive;\r\n" + 
+        		"		color:white;\r\n" + 
+        		"		font-weight: lighter;\r\n" + 
+        		"\r\n" + 
+        		"		\r\n" + 
+        		"	}\r\n" + 
+        		"	#body {\r\n" + 
+        		"	  background-image: url('D:/ArtefactoLerni/API-REST/REST-API-LERNI/lerni/lerni.PNG');\r\n" + 
+        		"	  background-repeat: no-repeat;\r\n" + 
+        		"	  background-attachment: fixed;\r\n" + 
+        		"	  background-size: cover;\r\n" + 
+        		"	}\r\n" + 
+        		"	#div{\r\n" + 
+        		"	 text-align: justify;\r\n" + 
+        		"	 width: fit-content;\r\n" + 
+        		"	}\r\n" + 
+        		"	\r\n" + 
+        		"</style>\r\n" + 
+        		"<body id=\"body\">\r\n" + 
+        		"\r\n" + 
+        		"<center><h1 id=\"h1\">Bienvenid@ "+nombre +"</h1>\r\n" + 
+        		"  <div id=\"#div\">\r\n" + 
+        		"	<h3 id=\"h3\">Te confirmamos que tu solicitud de registro ha finalizado correctamente, te invitamos a iniciar sesi&oacute;n\r\n" + 
+        		"	en nuestra app m&oacute;vil y comenzar a conectar m&aacute;s de cerca con la educaci&oacute;n de tu hijo.</h3>\r\n" + 
+        		"  </div>\r\n" + 
+        		"  <br>\r\n" + 
+        		"  <br>\r\n" + 
+        		"  <br>\r\n" + 
+        		"  <br>\r\n" + 
+        		"  <br>\r\n" + 
+        		"  <br>\r\n" + 
+        		"  <br>\r\n" + 
+        		"  <br>\r\n" + 
+        		"   <h3 id=\"h3\"> Por favor no respondas este mensaje.</h3>\r\n" + 
+        		"</body>\r\n" + 
+        		"</html>";
+ 
+        HtmlEmailSender mailer = new HtmlEmailSender();
+ 
+        try {
+            mailer.sendHtmlEmail(host, port, mailFrom, password, mailTo,
+                    subject, message);
+            System.out.println("Email sent.");
+        } catch (Exception ex) {
+            System.out.println("Failed to sent email.");
+            ex.printStackTrace();
+        }
+    }
 	
 	
 }

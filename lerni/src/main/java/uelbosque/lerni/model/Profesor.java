@@ -18,7 +18,14 @@ public class Profesor {
 	private int cod_actividad_asignada;
 	private int cod_usuario;
 	private String universidad;
+	private String correo_electronico;
 	
+	public String getCorreo_electronico() {
+		return correo_electronico;
+	}
+	public void setCorreo_electronico(String correo_electronico) {
+		this.correo_electronico = correo_electronico;
+	}
 	public Long getCedula() {
 		return cedula;
 	}

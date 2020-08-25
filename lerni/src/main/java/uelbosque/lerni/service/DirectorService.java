@@ -77,6 +77,7 @@ public class DirectorService {
 		dir.setNombres(directorDetalle.getNombres());
 		dir.setApellidos(directorDetalle.getApellidos());
 		dir.setCod_usuario(directorDetalle.getCod_usuario());
+		dir.setCorreo_electronico(directorDetalle.getCorreo_electronico());
 		
 		Director actualizar= directorDAO.save(dir);
 		return ResponseEntity.ok().body(dir);

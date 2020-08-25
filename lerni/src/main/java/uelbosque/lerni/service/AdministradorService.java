@@ -78,7 +78,7 @@ public class AdministradorService {
 		dir.setNombres(administradorDetalle.getNombres());
 		dir.setApellidos(administradorDetalle.getApellidos());
 		dir.setCod_usuario(administradorDetalle.getCod_usuario());
-		
+		dir.setCorreo_electronico(administradorDetalle.getCorreo_electronico());
 		Administrador actualizar= administradorDAO.save(dir);
 		return ResponseEntity.ok().body(dir);
 		

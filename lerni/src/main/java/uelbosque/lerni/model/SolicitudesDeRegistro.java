@@ -23,6 +23,7 @@ public class SolicitudesDeRegistro {
 	private String password;
 	private String titulo_profesional;
 	private String universidad;
+	private String correo_electronico;
 	
 	
 	public Long getId() {
@@ -91,6 +92,13 @@ public class SolicitudesDeRegistro {
 	public void setUniversidad(String universidad) {
 		this.universidad = universidad;
 	}
+	public String getCorreo_electronico() {
+		return correo_electronico;
+	}
+	public void setCorreo_electronico(String correo_electronico) {
+		this.correo_electronico = correo_electronico;
+	}
+	
 	
 			
 	
