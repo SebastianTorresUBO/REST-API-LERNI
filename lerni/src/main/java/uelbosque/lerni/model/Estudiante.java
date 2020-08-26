@@ -13,8 +13,6 @@ public class Estudiante {
 	private String nombre;
 	private String apellidos;
 	private String edad;
-	private int cod_usuario;
-	private int id_kpi;
 	private int cedula_padre_tutor;
 	private int cod_curso;
 	
@@ -42,18 +40,7 @@ public class Estudiante {
 	public void setEdad(String edad) {
 		this.edad = edad;
 	}
-	public int getCod_usuario() {
-		return cod_usuario;
-	}
-	public void setCod_usuario(int cod_usuario) {
-		this.cod_usuario = cod_usuario;
-	}
-	public int getId_kpi() {
-		return id_kpi;
-	}
-	public void setId_kpi(int id_kpi) {
-		this.id_kpi = id_kpi;
-	}
+		
 	public int getCedula_padre_tutor() {
 		return cedula_padre_tutor;
 	}

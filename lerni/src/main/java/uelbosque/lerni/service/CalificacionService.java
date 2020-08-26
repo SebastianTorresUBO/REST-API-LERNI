@@ -73,9 +73,9 @@ public class CalificacionService {
 		}
 		
 		cal.setId_calificacion(calificacionDetalle.getId_calificacion());
-		cal.setCedula_profesor(calificacionDetalle.getCedula_profesor());
-		cal.setCod_actividad(calificacionDetalle.getCod_actividad());
 		cal.setValor(calificacionDetalle.getValor());
+		cal.setDescripcion(calificacionDetalle.getDescripcion());
+		
 		
 		Calificacion actualizar= calificacionDAO.save(cal);
 		return ResponseEntity.ok().body(cal);

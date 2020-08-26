@@ -74,8 +74,6 @@ public class EstudianteService {
 		est.setNombre(estudianteDetalle.getNombre());
 		est.setApellidos(estudianteDetalle.getApellidos());
 		est.setEdad(estudianteDetalle.getEdad());
-		est.setCod_usuario(estudianteDetalle.getCod_usuario());
-		est.setId_kpi(estudianteDetalle.getId_kpi());
 		est.setCedula_padre_tutor(estudianteDetalle.getCedula_padre_tutor());
 		est.setCod_curso(estudianteDetalle.getCod_curso());
 		

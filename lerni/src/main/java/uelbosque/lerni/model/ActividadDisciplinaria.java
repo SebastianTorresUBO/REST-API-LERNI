@@ -13,7 +13,7 @@ public class ActividadDisciplinaria {
 	private String nombre;
 	private String descripcion_actividad;
 	private int recompensa_por_cumplimiento_actividad;
-	private int id_calificacion;
+	
 	
 	public Long getCod_actividad() {
 		return cod_actividad;
@@ -40,12 +40,7 @@ public class ActividadDisciplinaria {
 			int recompensa_por_cumplimiento_actividad) {
 		this.recompensa_por_cumplimiento_actividad = recompensa_por_cumplimiento_actividad;
 	}
-	public int getId_calificacion() {
-		return id_calificacion;
-	}
-	public void setId_calificacion(int id_calificacion) {
-		this.id_calificacion = id_calificacion;
-	}
+
 	
 	
 	

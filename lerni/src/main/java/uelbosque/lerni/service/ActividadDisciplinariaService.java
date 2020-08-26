@@ -73,7 +73,7 @@ public class ActividadDisciplinariaService {
 		act.setNombre(actividadDetalle.getNombre());
 		act.setDescripcion_actividad(actividadDetalle.getDescripcion_actividad());
 		act.setRecompensa_por_cumplimiento_actividad(actividadDetalle.getRecompensa_por_cumplimiento_actividad());
-		act.setId_calificacion(actividadDetalle.getId_calificacion());
+		
 		
 		ActividadDisciplinaria actualizar= actividadDisciplinariaDAO.save(act);
 		return ResponseEntity.ok().body(act);

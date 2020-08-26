@@ -74,9 +74,7 @@ public class CursoService {
 		
 		cur.setCodigo_curso(cursoDetalle.getCodigo_curso());
 		cur.setNombre_curso(cursoDetalle.getNombre_curso());
-		cur.setCod_estudiante(cursoDetalle.getCod_estudiante());
-		cur.setCedula_profesor(cursoDetalle.getCedula_profesor());
-		cur.setNumero_estudiantes(cursoDetalle.getNumero_estudiantes());
+		
 		
 		Curso actualizar= cursoDAO.save(cur);
 		return ResponseEntity.ok().body(cur);

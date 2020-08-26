@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import uelbosque.lerni.DAO.Kpi_indicadores_rendimientoDAO;
-import uelbosque.lerni.model.Kpi_indicadores_rendimiento;
+
+import uelbosque.lerni.DAO.Registro_Notas_kpiDAO;
+import uelbosque.lerni.model.Registro_notas_kpi;
+
 
 
 @RestController
@@ -25,14 +27,14 @@ import uelbosque.lerni.model.Kpi_indicadores_rendimiento;
 public class Kpi_indicadores_rendimientoService {
 
 	@Autowired
-	Kpi_indicadores_rendimientoDAO kpi_indicadores_rendimientoDAO;
+	 Registro_Notas_kpiDAO registro_Notas_kpiDAO;
 	
 	
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-kpi")
-	public ResponseEntity<Kpi_indicadores_rendimiento> crearKpi(@Valid @RequestBody Kpi_indicadores_rendimiento pro){
+	public ResponseEntity<Registro_notas_kpi> crearKpi(@Valid @RequestBody Registro_notas_kpi pro){
 		if(!pro.equals(null)){
-			kpi_indicadores_rendimientoDAO.save(pro);
+			registro_Notas_kpiDAO.save(pro);
 			return ResponseEntity.ok().build();
 		} else {
 			return ResponseEntity.badRequest().build();
@@ -42,20 +44,20 @@ public class Kpi_indicadores_rendimientoService {
 	@CrossOrigin(origins ="*")
 	/* tomar todos los kpi*/
 	@GetMapping("/kpis")
-	public ResponseEntity<List<Kpi_indicadores_rendimiento>> getAllKpis(){
-		if(kpi_indicadores_rendimientoDAO.findAll().equals(null) || kpi_indicadores_rendimientoDAO.findAll().size()==0){
+	public ResponseEntity<List<Registro_notas_kpi>> getAllKpis(){
+		if(registro_Notas_kpiDAO.findAll().equals(null) || registro_Notas_kpiDAO.findAll().size()==0){
 			return ResponseEntity.noContent().build();
 		} else {	
-			return ResponseEntity.ok().body(kpi_indicadores_rendimientoDAO.findAll());
+			return ResponseEntity.ok().body(registro_Notas_kpiDAO.findAll());
 		}
 	}
 	
 	@CrossOrigin(origins ="*")
 	/* obtener kpi por ID*/
 	@GetMapping ("/kpis/{id}")
-	public ResponseEntity<Kpi_indicadores_rendimiento> getKpiById(@PathVariable(value="id") Long empid){
+	public ResponseEntity<Registro_notas_kpi> getKpiById(@PathVariable(value="id") Long empid){
 		
-		Kpi_indicadores_rendimiento pro= kpi_indicadores_rendimientoDAO.finOne(empid);
+		Registro_notas_kpi pro= registro_Notas_kpiDAO.finOne(empid);
 		if(pro==null){
 			return ResponseEntity.noContent().build();
 		}
@@ -65,28 +67,30 @@ public class Kpi_indicadores_rendimientoService {
 	@CrossOrigin(origins ="*")
 	/* actualizar kpi por id*/
 	@PutMapping("/kpi/{id}")
-	public ResponseEntity<Kpi_indicadores_rendimiento> updateKpi(@PathVariable(value="id") Long empid, @Valid @RequestBody Kpi_indicadores_rendimiento kpiDetalle){
-		Kpi_indicadores_rendimiento kpi = kpi_indicadores_rendimientoDAO.finOne(empid);
+	public ResponseEntity<Registro_notas_kpi> updateKpi(@PathVariable(value="id") Long empid, @Valid @RequestBody Registro_notas_kpi kpiDetalle){
+		Registro_notas_kpi kpi = registro_Notas_kpiDAO.finOne(empid);
 		if(kpi==null){
 			return ResponseEntity.notFound().build();
 		}
-		kpi.setId_kpi(kpiDetalle.getId_kpi());
+		kpi.setId_nota_kpi(kpiDetalle.getId_nota_kpi());
 		kpi.setId_estudiante(kpiDetalle.getId_estudiante());
-		kpi.setCalificacion_actividad(kpiDetalle.getCalificacion_actividad());
+		kpi.setId_calificacion(kpiDetalle.getId_calificacion());
+		kpi.setCod_actividad(kpiDetalle.getCod_actividad());
 		kpi.setFecha_inicio(kpiDetalle.getFecha_inicio());
 		kpi.setFecha_fin(kpiDetalle.getFecha_fin());
+		kpi.setCedula_profesor(kpiDetalle.getCedula_profesor());
 		
-		Kpi_indicadores_rendimiento actualizar= kpi_indicadores_rendimientoDAO.save(kpi);
+		Registro_notas_kpi actualizar= registro_Notas_kpiDAO.save(kpi);
 		return ResponseEntity.ok().body(kpi);	
 	}
 	
 	@DeleteMapping("/kpi/{id}")
-	public ResponseEntity<Kpi_indicadores_rendimiento> deleteKpis(@PathVariable(value="id") Long empid){
-		Kpi_indicadores_rendimiento ciu=kpi_indicadores_rendimientoDAO.finOne(empid);
+	public ResponseEntity<Registro_notas_kpi> deleteKpis(@PathVariable(value="id") Long empid){
+		Registro_notas_kpi ciu=registro_Notas_kpiDAO.finOne(empid);
 		if (ciu==null){
 			return ResponseEntity.noContent().build();
 		}
-		kpi_indicadores_rendimientoDAO.delete(ciu);
+		registro_Notas_kpiDAO.delete(ciu);
 		return ResponseEntity.ok().build();
 	}
 	
