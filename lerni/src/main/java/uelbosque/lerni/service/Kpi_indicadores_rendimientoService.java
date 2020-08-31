@@ -1,5 +1,6 @@
 package uelbosque.lerni.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import uelbosque.lerni.DAO.Registro_Notas_kpiDAO;
+import uelbosque.lerni.DTO.Registro_notas_kpi_historico;
 import uelbosque.lerni.model.Registro_notas_kpi;
 
 
@@ -92,6 +94,20 @@ public class Kpi_indicadores_rendimientoService {
 		}
 		registro_Notas_kpiDAO.delete(ciu);
 		return ResponseEntity.ok().build();
+	}
+	
+	@CrossOrigin(origins ="*")
+	/* tomar todos los kpi*/
+	@GetMapping("/history-kpis")
+	public ResponseEntity<List<Object>> getAllhistoryKpis(){
+		if(registro_Notas_kpiDAO.findAllNative().equals(null) || registro_Notas_kpiDAO.findAllNative().size()==0){
+			return ResponseEntity.noContent().build();
+		} else {	
+			
+			return ResponseEntity.ok().body(registro_Notas_kpiDAO.findAllNative());
+			 
+			 
+		}
 	}
 	
 	

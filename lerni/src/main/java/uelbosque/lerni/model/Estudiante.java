@@ -10,8 +10,8 @@ public class Estudiante {
 
 	@Id
 	private Long id_estudiante;
-	private String nombre;
-	private String apellidos;
+	private String nombre_estudiante;
+	private String apellidos_estudiante;
 	private String edad;
 	private int cedula_padre_tutor;
 	private int cod_curso;
@@ -23,16 +23,16 @@ public class Estudiante {
 		this.id_estudiante = id_estudiante;
 	}
 	public String getNombre() {
-		return nombre;
+		return nombre_estudiante;
 	}
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre_estudiante = nombre;
 	}
 	public String getApellidos() {
-		return apellidos;
+		return apellidos_estudiante;
 	}
 	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+		this.apellidos_estudiante = apellidos;
 	}
 	public String getEdad() {
 		return edad;
