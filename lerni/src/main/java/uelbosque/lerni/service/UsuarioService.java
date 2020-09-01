@@ -16,16 +16,50 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import uelbosque.lerni.DAO.UsuarioDAO;
+import uelbosque.lerni.model.ErrorObject;
 import uelbosque.lerni.model.Usuario;
 
 @RestController
 @RequestMapping("/usuarios")
+@Tag(name="usuarios", description = "Usuarios del API")
 public class UsuarioService {
 
 	@Autowired
 	UsuarioDAO usuarioDAO;
 	
+	@Operation(
+			summary = "Insertar nuevo usuario",
+			description = "Inserta a usuario",
+			tags = "usuarios"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = Usuario.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "400",
+					 description = "Bad Request, Se envia nulo el objeto de inserción de datos",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nuevo-usuario")
 	public ResponseEntity<Usuario> crearPersona(@Valid @RequestBody Usuario inv){
@@ -38,6 +72,31 @@ public class UsuarioService {
 		
 	}
 	
+	@Operation(
+			summary = "Consultar a todos los usuarios",
+			description = "Consultar a todos los usuarios",
+			tags = "usuarios"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = Usuario.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, No hay usuarios en la base de datos",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
 	@CrossOrigin(origins ="*")
 	/* tomar todos los usuarios*/
 	@GetMapping("/usuarios")
@@ -49,6 +108,31 @@ public class UsuarioService {
 		} 
 	}
 	
+	@Operation(
+			summary = "Consulta de usuario con id especifico",
+			description = "Consulta un usuario en particular",
+			tags = "usuarios"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = Usuario.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, No existe el usuario en la base de datos",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
 	@CrossOrigin(origins ="*")
 	/* obtener usuario por ID*/
 	@GetMapping ("/usuario/{id}")
@@ -60,6 +144,31 @@ public class UsuarioService {
 		return ResponseEntity.ok().body(ciu);
 	}
 	
+	@Operation(
+			summary = "Actualización de usuario con id especifico",
+			description = "Actualiza usuario con Id especifico",
+			tags = "usuarios"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = Usuario.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "404",
+					 description = "Not  found, No existe el usuario a actualizar en la base de datos",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
 	@CrossOrigin(origins ="*")
 	/* actualizar usuario por id*/
 	@PutMapping("/usuario/{id}")
@@ -80,6 +189,31 @@ public class UsuarioService {
 		return ResponseEntity.ok().body(sol);
 	}
 	
+	@Operation(
+			summary = "Borrado de usuario con id especifico",
+			description = "Borrado de un usuario en particular",
+			tags = "usuarios"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = Usuario.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, No existe el usuario a borrar en la base de datos",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
 	@DeleteMapping("/usuario/{id}")
 	public ResponseEntity<Usuario> deleteUsuario(@PathVariable(value="id") Long empid){
 		Usuario ciu=usuarioDAO.finOne(empid);

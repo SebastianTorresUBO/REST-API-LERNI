@@ -18,6 +18,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import uelbosque.lerni.DAO.AdministradorDAO;
 import uelbosque.lerni.DAO.DirectorDAO;
 import uelbosque.lerni.DAO.Padre_tutorDAO;
@@ -27,6 +33,7 @@ import uelbosque.lerni.DAO.UsuarioDAO;
 import uelbosque.lerni.email.HtmlEmailSender;
 import uelbosque.lerni.model.Administrador;
 import uelbosque.lerni.model.Director;
+import uelbosque.lerni.model.ErrorObject;
 import uelbosque.lerni.model.Padre_tutor;
 import uelbosque.lerni.model.Profesor;
 import uelbosque.lerni.model.SolicitudesDeRegistro;
@@ -57,6 +64,38 @@ public class SolicitudRegistroService {
 	
 	private List<Tipo_usuario> tiposDeUsuario= new ArrayList();
 	
+	@Operation(
+			summary = "Nueva solicitud de registro de usuario",
+			description = "Nueva solicitud de un usuario en particular",
+			tags = "solicitudRegistro"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = SolicitudesDeRegistro.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "400",
+					 description = "Bad request, Envio vacio del objeto JSON de solicitud de registro ",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "409",
+					 description = "Conflict, El username de la solicitud que se desea registrar ya esta en uso",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 ),
+	 }
+	)
 	@CrossOrigin(origins ="*")
 	@PostMapping("/nueva-solicitud")
 	public ResponseEntity<SolicitudesDeRegistro> crearSolicitudUsuario(@Valid @RequestBody SolicitudesDeRegistro inv){
@@ -83,6 +122,32 @@ public class SolicitudRegistroService {
 		
 	}
 	
+	@Operation(
+			summary = "Consulta de todas las solicitudes de registro de usuario",
+			description = "Consulta de todas las solicitudes",
+			tags = "solicitudRegistro"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = SolicitudesDeRegistro.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, No existen solicitudes de registro de usuarios ",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+			 
+	 }
+	)
 	@CrossOrigin(origins ="*")
 	/* tomar todas las Solicitudes de usuarios*/
 	@GetMapping("/solicitudes")
@@ -94,6 +159,32 @@ public class SolicitudRegistroService {
 		}
 	}
 	
+	@Operation(
+			summary = "Consulta de  una solicitud de registro de usuario en particular",
+			description = "Consulta de solicitud especifica",
+			tags = "solicitudRegistro"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = SolicitudesDeRegistro.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, No existe la solicitud de usuario ",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+			 
+	 }
+	)
 	@CrossOrigin(origins ="*")
 	/* obtener solicitud por ID*/
 	@GetMapping ("/solicitud/{id}")
@@ -106,6 +197,32 @@ public class SolicitudRegistroService {
 		return ResponseEntity.ok().body(ciu);
 	}
 	
+	@Operation(
+			summary = "Actualizacion de  una solicitud de registro de usuario en particular",
+			description = "Actualizacion de solicitud",
+			tags = "solicitudRegistro"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation, debe enviarse todo el objeto de actualizacion unicamente con la modificacion en el atributo estado solicitud en A (aceptado), P(pendiente), N(negada)",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = SolicitudesDeRegistro.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "404",
+					 description = "Not found, No se encontro solicitud de registro en la base de datos para actualizar ",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+			 
+	 }
+	)
 	@CrossOrigin(origins ="*")
 	/* actualizar solicitud por id*/
 	@PutMapping("/solicitud/{id}")
@@ -223,6 +340,32 @@ public class SolicitudRegistroService {
 		
 	}
 	
+	@Operation(
+			summary = "Borrado de  una solicitud de registro de usuario en particular",
+			description = "Borrado de solicitud",
+			tags = "solicitudRegistro"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = SolicitudesDeRegistro.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "Not found, No se encontro solicitud de registro en la base de datos para eliminar ",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+			 
+	 }
+	)
 	@DeleteMapping("/solicitud/{id}")
 	public ResponseEntity<SolicitudesDeRegistro> deleteSolicitudesDeUsuario(@PathVariable(value="id") Long empid){
 		SolicitudesDeRegistro ciu=solicitudUsuarioDAO.finOne(empid);

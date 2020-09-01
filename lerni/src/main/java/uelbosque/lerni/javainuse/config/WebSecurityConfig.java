@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.disable()
 				// dont authenticate this particular request
 				.authorizeRequests()
-				.antMatchers("/authenticate")
+				.antMatchers("/authenticate","/v3/api-docs", "/swagger-resources/configuration/ui", "/swagger-resources", "/swagger-resources/configuration/security", "/swagger-ui/*", "/webjars/**")
 				.permitAll()
 				.
 				// all other requests need to be authenticated
