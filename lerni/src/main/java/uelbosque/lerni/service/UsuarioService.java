@@ -145,6 +145,42 @@ public class UsuarioService {
 	}
 	
 	@Operation(
+			summary = "Consulta de usuario con nombre de usuario especifico",
+			description = "Consulta un usuario en particular",
+			tags = "usuarios"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = Usuario.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, No existe el usuario en la base de datos",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
+	@CrossOrigin(origins ="*")
+	/* obtener usuario por ID*/
+	@GetMapping ("/{username}")
+	public ResponseEntity<Usuario> getUsuarioById(@PathVariable(value="username") String empid){
+		Usuario ciu= usuarioDAO.findRegisteredUser(empid);
+		if(ciu==null){
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok().body(ciu);
+	}
+	
+	@Operation(
 			summary = "Actualización de usuario con id especifico",
 			description = "Actualiza usuario con Id especifico",
 			tags = "usuarios"
