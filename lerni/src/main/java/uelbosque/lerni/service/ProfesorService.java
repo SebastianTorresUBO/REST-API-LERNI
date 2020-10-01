@@ -87,7 +87,7 @@ public class ProfesorService {
 		return ResponseEntity.ok().body(pro);
 		
 	}
-	
+	@CrossOrigin(origins ="*")
 	@DeleteMapping("/profesor/{id}")
 	public ResponseEntity<Profesor> deleteProfesor(@PathVariable(value="id") Long empid){
 		Profesor ciu=profesorDAO.finOne(empid);

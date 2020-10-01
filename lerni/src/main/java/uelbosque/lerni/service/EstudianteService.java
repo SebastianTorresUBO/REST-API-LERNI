@@ -223,6 +223,7 @@ public class EstudianteService {
 			 )
 	 }
 	)
+	@CrossOrigin(origins ="*")
 	@DeleteMapping("/estudiante/{id}")
 	public ResponseEntity<Estudiante> deleteEstudiante(@PathVariable(value="id") Long empid){
 		Estudiante ciu=estudianteDAO.finOne(empid);

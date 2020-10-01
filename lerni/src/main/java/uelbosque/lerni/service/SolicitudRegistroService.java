@@ -366,6 +366,7 @@ public class SolicitudRegistroService {
 			 
 	 }
 	)
+	@CrossOrigin(origins ="*")
 	@DeleteMapping("/solicitud/{id}")
 	public ResponseEntity<SolicitudesDeRegistro> deleteSolicitudesDeUsuario(@PathVariable(value="id") Long empid){
 		SolicitudesDeRegistro ciu=solicitudUsuarioDAO.finOne(empid);

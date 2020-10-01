@@ -83,7 +83,7 @@ public class AdministradorService {
 		return ResponseEntity.ok().body(dir);
 		
 	}
-	
+	@CrossOrigin(origins ="*")
 	@DeleteMapping("/administrador/{id}")
 	public ResponseEntity<Administrador> deleteAdministrador(@PathVariable(value="id") Long empid){
 		Administrador ciu=administradorDAO.finOne(empid);

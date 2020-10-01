@@ -80,7 +80,7 @@ public class CursoService {
 		return ResponseEntity.ok().body(cur);
 		
 	}
-	
+	@CrossOrigin(origins ="*")
 	@DeleteMapping("/curso/{id}")
 	public ResponseEntity<Curso> deleteCurso(@PathVariable(value="id") Long empid){
 		Curso ciu=cursoDAO.finOne(empid);

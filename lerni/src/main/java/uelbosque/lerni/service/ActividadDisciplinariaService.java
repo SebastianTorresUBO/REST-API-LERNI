@@ -213,6 +213,7 @@ public class ActividadDisciplinariaService {
 			 )
 	 }
 	)
+	@CrossOrigin(origins ="*")
 	@DeleteMapping("/actividad/{id}")
 	public ResponseEntity<ActividadDisciplinaria> deleteActividad(@PathVariable(value="id") Long empid){
 		ActividadDisciplinaria ciu=actividadDisciplinariaDAO.finOne(empid);

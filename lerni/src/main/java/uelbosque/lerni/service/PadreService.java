@@ -82,7 +82,7 @@ public class PadreService {
 		return ResponseEntity.ok().body(pad);
 		
 	}
-	
+	@CrossOrigin(origins ="*")
 	@DeleteMapping("/padre/{id}")
 	public ResponseEntity<Padre_tutor> deletePadre(@PathVariable(value="id") Long empid){
 		Padre_tutor ciu=padre_tutorDAO.finOne(empid);
