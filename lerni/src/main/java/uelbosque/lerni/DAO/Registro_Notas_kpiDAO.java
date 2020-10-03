@@ -39,7 +39,7 @@ public class Registro_Notas_kpiDAO {
 		registro_Notas_kpi_repository.delete(emp);
 	}
 	/* Buscar KPI */
-	public List<Object> findAllNative(){
+	public List<Registro_notas_kpi_historico> findAllNative(){
 		return registro_Notas_kpi_repositoryJpql.findAllHistoryNotes();
 	}
 }

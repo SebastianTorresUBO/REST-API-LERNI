@@ -1,6 +1,7 @@
 package uelbosque.lerni.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,6 +10,7 @@ import javax.persistence.Table;
 public class Estudiante {
 
 	@Id
+	@GeneratedValue
 	private Long id_estudiante;
 	private String nombre_estudiante;
 	private String apellidos_estudiante;

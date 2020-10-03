@@ -263,7 +263,7 @@ public class Kpi_indicadores_rendimientoService {
 	@CrossOrigin(origins ="*")
 	/* tomar todos los kpi*/
 	@GetMapping("/history-kpis")
-	public ResponseEntity<List<Object>> getAllhistoryKpis(){
+	public ResponseEntity<List<Registro_notas_kpi_historico>> getAllhistoryKpis(){
 		if(registro_Notas_kpiDAO.findAllNative().equals(null) || registro_Notas_kpiDAO.findAllNative().size()==0){
 			return ResponseEntity.noContent().build();
 		} else {	

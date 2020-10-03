@@ -5,26 +5,26 @@ import java.util.List;
 
 public class Registro_notas_kpi_historico {
 
-	private int id_nota_kpi;
+	private long id_nota_kpi;
 	private int id_estudiante;
 	private String nombre;
 	private String apellidos_estudiante;
-	private int edad;
+	private String edad;
 	private int cedula_padre_tutor;
 	private int valor;
 	private String descripcion;
 	private String nombre_actividad;
 	private String recompensa_por_cumplimiento_actividad;
-	private String cedula_profesor;
+	private int cedula_profesor;
 	private String nombres;
 	private String apellidos_profesor;
 	
 	
 	
 	
-	public Registro_notas_kpi_historico(int id_nota_kpi, int id_estudiante, String nombre, String apellidos_estudiante,
-			int edad, int cedula_padre_tutor, int valor, String descripcion, String nombre_actividad,
-			String recompensa_por_cumplimiento_actividad, String cedula_profesor, String nombres,
+	public Registro_notas_kpi_historico(long id_nota_kpi, int id_estudiante, String nombre, String apellidos_estudiante,
+			String edad, int cedula_padre_tutor, int valor, String descripcion, String nombre_actividad,
+			String recompensa_por_cumplimiento_actividad, int cedula_profesor, String nombres,
 			String apellidos_profesor) {
 		super();
 		this.id_nota_kpi = id_nota_kpi;
@@ -57,10 +57,10 @@ public class Registro_notas_kpi_historico {
 		System.out.println("entre");
 		return listKpis;
 	}
-	public int getId_nota_kpi() {
+	public long getId_nota_kpi() {
 		return id_nota_kpi;
 	}
-	public void setId_nota_kpi(int id_nota_kpi) {
+	public void setId_nota_kpi(long id_nota_kpi) {
 		this.id_nota_kpi = id_nota_kpi;
 	}
 	public int getId_estudiante() {
@@ -81,10 +81,10 @@ public class Registro_notas_kpi_historico {
 	public void setApellidos_estudiante(String apellidos_estudiante) {
 		this.apellidos_estudiante = apellidos_estudiante;
 	}
-	public int getEdad() {
+	public String getEdad() {
 		return edad;
 	}
-	public void setEdad(int edad) {
+	public void setEdad(String edad) {
 		this.edad = edad;
 	}
 	public int getCedula_padre_tutor() {
@@ -117,10 +117,10 @@ public class Registro_notas_kpi_historico {
 	public void setRecompensa_por_cumplimiento_actividad(String recompensa_por_cumplimiento_actividad) {
 		this.recompensa_por_cumplimiento_actividad = recompensa_por_cumplimiento_actividad;
 	}
-	public String getCedula_profesor() {
+	public int getCedula_profesor() {
 		return cedula_profesor;
 	}
-	public void setCedula_profesor(String cedula_profesor) {
+	public void setCedula_profesor(int cedula_profesor) {
 		this.cedula_profesor = cedula_profesor;
 	}
 	public String getNombres() {
