@@ -3,6 +3,7 @@ package uelbosque.lerni.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 public class Registro_notas_kpi {
 		
 	@Id
+	@GeneratedValue
 	private Long id_nota_kpi;
 	private int id_estudiante;
 	private int id_calificacion;
