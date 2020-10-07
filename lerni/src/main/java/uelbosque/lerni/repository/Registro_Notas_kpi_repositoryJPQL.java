@@ -16,8 +16,8 @@ import uelbosque.lerni.model.Registro_notas_kpi;
 public interface Registro_Notas_kpi_repositoryJPQL extends CrudRepository<Registro_notas_kpi, Long>{
 
 	@Query(value = "SELECT NEW uelbosque.lerni.DTO.Registro_notas_kpi_historico (r.id_nota_kpi, r.id_estudiante, e.nombre_estudiante, e.apellidos_estudiante, e.edad,\r\n" + 
-			"	e.cedula_padre_tutor, c.valor, c.descripcion, a.nombre, a.recompensa_por_cumplimiento_actividad,\r\n" + 
-			"	r.cedula_profesor, p.nombres, p.apellidos)\r\n" + 
+			"	e.cedula_padre_tutor, c.id_calificacion ,c.valor, c.descripcion, a.cod_actividad, a.nombre, a.recompensa_por_cumplimiento_actividad,\r\n" + 
+			"	r.cedula_profesor, p.nombres, p.apellidos, r.fecha_inicio, r.fecha_fin)\r\n" + 
 			"	from Registro_notas_kpi r, Estudiante e, Calificacion c, ActividadDisciplinaria a, Profesor p\r\n" + 
 			"	where r.id_estudiante = e.id_estudiante\r\n" + 
 			"	and r.id_calificacion=c.id_calificacion\r\n" + 

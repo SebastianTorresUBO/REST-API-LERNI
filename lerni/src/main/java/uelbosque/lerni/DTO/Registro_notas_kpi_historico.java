@@ -1,6 +1,7 @@
 package uelbosque.lerni.DTO;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Registro_notas_kpi_historico {
@@ -11,21 +12,25 @@ public class Registro_notas_kpi_historico {
 	private String apellidos_estudiante;
 	private String edad;
 	private int cedula_padre_tutor;
+	private long id_calificacion;
 	private int valor;
 	private String descripcion;
+	private Long cod_actividad;
 	private String nombre_actividad;
 	private String recompensa_por_cumplimiento_actividad;
 	private int cedula_profesor;
 	private String nombres;
 	private String apellidos_profesor;
+	private Date fecha_inicio;
+	private Date fecha_fin;
 	
 	
 	
 	
 	public Registro_notas_kpi_historico(long id_nota_kpi, int id_estudiante, String nombre, String apellidos_estudiante,
-			String edad, int cedula_padre_tutor, int valor, String descripcion, String nombre_actividad,
+			String edad, int cedula_padre_tutor, long id_calificacion,int valor, String descripcion,long cod_actividad, String nombre_actividad,
 			String recompensa_por_cumplimiento_actividad, int cedula_profesor, String nombres,
-			String apellidos_profesor) {
+			String apellidos_profesor, Date fecha_inicio, Date fecha_fin) {
 		super();
 		this.id_nota_kpi = id_nota_kpi;
 		this.id_estudiante = id_estudiante;
@@ -33,13 +38,17 @@ public class Registro_notas_kpi_historico {
 		this.apellidos_estudiante = apellidos_estudiante;
 		this.edad = edad;
 		this.cedula_padre_tutor = cedula_padre_tutor;
+		this.id_calificacion=id_calificacion;
 		this.valor = valor;
 		this.descripcion = descripcion;
+		this.cod_actividad=cod_actividad;
 		this.nombre_actividad = nombre_actividad;
 		this.recompensa_por_cumplimiento_actividad = recompensa_por_cumplimiento_actividad;
 		this.cedula_profesor = cedula_profesor;
 		this.nombres = nombres;
 		this.apellidos_profesor = apellidos_profesor;
+		this.fecha_inicio=fecha_inicio;
+		this.fecha_fin=fecha_fin;
 	}
 	public List<Registro_notas_kpi_historico> convertObjectToDto (List<Object> obj) {
 		List<Registro_notas_kpi_historico> listKpis = new ArrayList<Registro_notas_kpi_historico>(); 
@@ -56,6 +65,32 @@ public class Registro_notas_kpi_historico {
 		}
 		System.out.println("entre");
 		return listKpis;
+	}
+	
+	
+	public Long getCod_actividad() {
+		return cod_actividad;
+	}
+	public void setCod_actividad(Long cod_actividad) {
+		this.cod_actividad = cod_actividad;
+	}
+	public Date getFecha_inicio() {
+		return fecha_inicio;
+	}
+	public void setFecha_inicio(Date fecha_inicio) {
+		this.fecha_inicio = fecha_inicio;
+	}
+	public Date getFecha_fin() {
+		return fecha_fin;
+	}
+	public void setFecha_fin(Date fecha_fin) {
+		this.fecha_fin = fecha_fin;
+	}
+	public long getId_calificacion() {
+		return id_calificacion;
+	}
+	public void setId_calificacion(long id_calificacion) {
+		this.id_calificacion = id_calificacion;
 	}
 	public long getId_nota_kpi() {
 		return id_nota_kpi;
