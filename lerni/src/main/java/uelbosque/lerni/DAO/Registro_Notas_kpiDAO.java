@@ -42,4 +42,9 @@ public class Registro_Notas_kpiDAO {
 	public List<Registro_notas_kpi_historico> findAllNative(){
 		return registro_Notas_kpi_repositoryJpql.findAllHistoryNotes();
 	}
+	
+	/* Buscar KPI por id estudiante */
+	public List<Registro_notas_kpi_historico> findIdEstudiante(int id_estudiante){
+		return registro_Notas_kpi_repositoryJpql.findIdEstudiante(id_estudiante);
+	}
 }

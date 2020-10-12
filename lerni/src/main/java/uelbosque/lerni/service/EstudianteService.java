@@ -233,4 +233,41 @@ public class EstudianteService {
 		estudianteDAO.delete(ciu);
 		return ResponseEntity.ok().build();
 	}
+	
+	@Operation(
+			summary = "Consulta de estudiante por cedula de padre/tutor asociado",
+			description = "",
+			tags = "Estudiante"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = Estudiante.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, No exite el estudiante a consultar en la base de datos ",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
+	@CrossOrigin(origins ="*")
+	/* obtener estudiante por cedula padre*/
+	@GetMapping ("/padre/{id_padre_tutor}")
+	public ResponseEntity<Estudiante> getEstudianteByCedulaPadreTutor(@PathVariable(value="id_padre_tutor") int empid){
+		
+		Estudiante ciu= estudianteDAO.finOnePadreTutor(empid);
+		if(ciu==null){
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.ok().body(ciu);
+	}
 }

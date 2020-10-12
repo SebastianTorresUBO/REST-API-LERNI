@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import uelbosque.lerni.model.Estudiante;
 import uelbosque.lerni.repository.EstudianteRepository;
+import uelbosque.lerni.repository.EstudianteRepositoryJPQL;
 
 
 @Service
 public class EstudianteDAO {
 	@Autowired
 	EstudianteRepository estudianteRepository;
+	
+	@Autowired
+	EstudianteRepositoryJPQL estudianteRepositoryJPQL;
 	
 	/* guardar estudiante */
 	public Estudiante save(Estudiante dir){
@@ -30,5 +34,9 @@ public class EstudianteDAO {
 	
 	public void delete(Estudiante emp){
 		estudianteRepository.delete(emp);
+	}
+	/* Buscar estudiante por cedula padre */
+	public Estudiante finOnePadreTutor(int empid){
+		return estudianteRepositoryJPQL.findEstudianteByPadreTutor(empid);
 	}
 }

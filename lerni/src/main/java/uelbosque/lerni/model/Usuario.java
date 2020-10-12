@@ -18,6 +18,7 @@ public class Usuario {
 	private String username;
 	private String password;
 	private String institucion_educativa_vinculada;
+	private int cedula_usuario;
 	
 	
 	
@@ -65,6 +66,12 @@ public class Usuario {
 	}
 	public void setInstitucion_educativa_vinculada(String institucion_educativa_vinculada) {
 		this.institucion_educativa_vinculada = institucion_educativa_vinculada;
+	}
+	public int getCedula_usuario() {
+		return cedula_usuario;
+	}
+	public void setCedula_usuario(int cedula_usuario) {
+		this.cedula_usuario = cedula_usuario;
 	}
 	
 	

@@ -247,7 +247,7 @@ public class Kpi_indicadores_rendimientoService {
 					 description = "successful operation",
 					 content= @Content(
 							 array= @ArraySchema(
-									 schema=@Schema( implementation = Registro_notas_kpi.class)
+									 schema=@Schema( implementation = Registro_notas_kpi_historico.class)
 							 )
 					 )
 			 ),
@@ -271,6 +271,42 @@ public class Kpi_indicadores_rendimientoService {
 			return ResponseEntity.ok().body(registro_Notas_kpiDAO.findAllNative());
 			 
 			 
+		}
+	}
+	
+	@Operation(
+			summary = "Consulta de historico de KPI de un estudiante en particular ",
+			description = "Consulta de historico de KPI que trae el detalle en los registros",
+			tags = "Registro_notas_KPI"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = Registro_notas_kpi_historico.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, no existe el historico de KPI's en especifico en la base de datos ",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
+	@CrossOrigin(origins ="*")
+	/* tomar todos los kpi*/
+	@GetMapping("/history-kpis/{id_estudiante}")
+	public ResponseEntity<List<Registro_notas_kpi_historico>> getIdhistoryKpi(@PathVariable(value="id_estudiante") int id_estudiante){
+		if(registro_Notas_kpiDAO.findIdEstudiante(id_estudiante).equals(null) || registro_Notas_kpiDAO.findIdEstudiante(id_estudiante).size()==0){
+			return ResponseEntity.noContent().build();
+		} else {	
+			return ResponseEntity.ok().body(registro_Notas_kpiDAO.findIdEstudiante(id_estudiante));
 		}
 	}
 	

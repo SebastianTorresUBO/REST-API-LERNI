@@ -243,6 +243,7 @@ public class SolicitudRegistroService {
 			usu.setInstitucion_educativa_vinculada(solicitudDetalle.getInstitucionEducativaVinculada());
 			usu.setUsername(solicitudDetalle.getUsername());
 			usu.setPassword(solicitudDetalle.getPassword());
+			usu.setCedula_usuario(solicitudDetalle.getNumDocumento());
 			
 			tiposDeUsuario.add(0,null);
 			

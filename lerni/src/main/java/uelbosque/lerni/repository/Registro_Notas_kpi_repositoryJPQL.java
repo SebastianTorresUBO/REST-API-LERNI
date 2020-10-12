@@ -24,5 +24,15 @@ public interface Registro_Notas_kpi_repositoryJPQL extends CrudRepository<Regist
 			"	and r.cod_actividad = a.cod_actividad \r\n" + 
 			"	and r.cedula_profesor=p.cedula", nativeQuery = false)
 	List<Registro_notas_kpi_historico> findAllHistoryNotes();
+	
+	@Query(value = "SELECT NEW uelbosque.lerni.DTO.Registro_notas_kpi_historico (r.id_nota_kpi, r.id_estudiante, e.nombre_estudiante, e.apellidos_estudiante, e.edad,\r\n" + 
+			"	e.cedula_padre_tutor, c.id_calificacion ,c.valor, c.descripcion, a.cod_actividad, a.nombre, a.recompensa_por_cumplimiento_actividad,\r\n" + 
+			"	r.cedula_profesor, p.nombres, p.apellidos, r.fecha_inicio, r.fecha_fin)\r\n" + 
+			"	from Registro_notas_kpi r, Estudiante e, Calificacion c, ActividadDisciplinaria a, Profesor p\r\n" + 
+			"	where r.id_estudiante = e.id_estudiante\r\n" + 
+			"	and r.id_calificacion=c.id_calificacion\r\n" + 
+			"	and r.cod_actividad = a.cod_actividad \r\n" + 
+			"	and r.cedula_profesor=p.cedula and r.id_estudiante = ?1", nativeQuery = false)
+	List<Registro_notas_kpi_historico> findIdEstudiante(int estudiante);
 
 }
