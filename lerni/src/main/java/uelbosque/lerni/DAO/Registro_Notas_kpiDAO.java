@@ -47,4 +47,9 @@ public class Registro_Notas_kpiDAO {
 	public List<Registro_notas_kpi_historico> findIdEstudiante(int id_estudiante){
 		return registro_Notas_kpi_repositoryJpql.findIdEstudiante(id_estudiante);
 	}
+	
+	/* Buscar KPI por cedula profesor */
+	public List<Registro_notas_kpi_historico> findIdEstudiantebyProfesor(int cedula_profesor){
+		return registro_Notas_kpi_repositoryJpql.findIdEstudiantebyProfesor(cedula_profesor);
+	}
 }
