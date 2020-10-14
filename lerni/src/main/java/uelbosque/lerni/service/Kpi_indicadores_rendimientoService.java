@@ -1,5 +1,6 @@
 package uelbosque.lerni.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -274,8 +275,11 @@ public class Kpi_indicadores_rendimientoService {
 		}
 	}
 	
+	
+	
+	
 	@Operation(
-			summary = "Consulta de historico de KPI de un estudiante en particular ",
+			summary = "Consulta de historico de KPI de un estudiante por cedula de padre ",
 			description = "Consulta de historico de KPI que trae el detalle en los registros",
 			tags = "Registro_notas_KPI"
 	)
@@ -301,14 +305,25 @@ public class Kpi_indicadores_rendimientoService {
 	)
 	@CrossOrigin(origins ="*")
 	/* tomar todos los kpi*/
-	@GetMapping("/history-kpis/{id_estudiante}")
-	public ResponseEntity<List<Registro_notas_kpi_historico>> getIdhistoryKpi(@PathVariable(value="id_estudiante") int id_estudiante){
-		if(registro_Notas_kpiDAO.findIdEstudiante(id_estudiante).equals(null) || registro_Notas_kpiDAO.findIdEstudiante(id_estudiante).size()==0){
+	@GetMapping("/history-kpis/padre/{cedula_padre}")
+	public ResponseEntity<List<Registro_notas_kpi_historico>> getIdhistoryKpiPadres(@PathVariable(value="cedula_padre") int cedula_padre){
+		if(registro_Notas_kpiDAO.findAllNative().equals(null) || registro_Notas_kpiDAO.findAllNative().size()==0){
 			return ResponseEntity.noContent().build();
-		} else {	
-			return ResponseEntity.ok().body(registro_Notas_kpiDAO.findIdEstudiante(id_estudiante));
+		} else {
+			
+			List<Registro_notas_kpi_historico> listRegh = new ArrayList<Registro_notas_kpi_historico>();
+			
+			for (Registro_notas_kpi_historico reg: registro_Notas_kpiDAO.findAllNative()) {
+				
+				if(reg.getCedula_padre_tutor()==cedula_padre) {	
+					listRegh.add(reg);
+				}
+			}
+			if (listRegh.size()==0) {
+				return ResponseEntity.noContent().build();
+			}
+			return ResponseEntity.ok().body(listRegh);
 		}
 	}
-	
 	
 }
