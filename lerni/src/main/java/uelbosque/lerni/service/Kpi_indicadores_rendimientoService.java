@@ -1,5 +1,6 @@
 package uelbosque.lerni.service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -25,7 +26,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import uelbosque.lerni.DAO.Registro_Notas_kpiDAO;
+import uelbosque.lerni.DTO.CalificacionPromedio_Kpi;
+import uelbosque.lerni.DTO.Extra;
+import uelbosque.lerni.DTO.GraficaLineal_kpi;
+import uelbosque.lerni.DTO.GraficaTorta_kpi;
+import uelbosque.lerni.DTO.InformacionEstudiante;
 import uelbosque.lerni.DTO.Registro_notas_kpi_historico;
+import uelbosque.lerni.DTO.Series;
+import uelbosque.lerni.DTO.actividadDisciplinariaNombreTorta;
 import uelbosque.lerni.model.ErrorObject;
 import uelbosque.lerni.model.Estudiante;
 import uelbosque.lerni.model.Registro_notas_kpi;
@@ -361,5 +369,139 @@ public class Kpi_indicadores_rendimientoService {
 			return ResponseEntity.ok().body(registro_Notas_kpiDAO.findIdEstudiantebyProfesor(cedula_profesor));
 		}
 	}
+	
+	@Operation(
+			summary = "Consulta de historico de KPI de los estudiantes que finalizaron un reto ",
+			description = "Consulta de historico de KPI que trae el detalle en los registros",
+			tags = "Registro_notas_KPI"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = Registro_notas_kpi_historico.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, no existe el historico de KPI's en especifico en la base de datos ",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
+	@CrossOrigin(origins ="*")
+	/* tomar todos los kpi*/
+	@GetMapping("/history-kpis/retosfinalizados")
+	public ResponseEntity<List<Registro_notas_kpi_historico>> getHistoryKpiFinalizados(){
+		
+		if(registro_Notas_kpiDAO.findAllNative().equals(null) || registro_Notas_kpiDAO.findAllNative().size()==0){
+			return ResponseEntity.noContent().build();
+		}else {
+			
+			List<Registro_notas_kpi_historico> listRegh = new ArrayList<Registro_notas_kpi_historico>();
+			
+			for (Registro_notas_kpi_historico reg: registro_Notas_kpiDAO.findAllNative()) {
+				
+				if(reg.getFecha_inicio()!=null) {
+					if(reg.getFecha_fin()!=null) {
+						listRegh.add(reg);
+					}
+				}
+			}
+			if (listRegh.size()==0) {
+				return ResponseEntity.noContent().build();
+			}
+			return ResponseEntity.ok().body(listRegh);
+			
+		}
+	}
+	
+	@Operation(
+			summary = "Consulta de datos con valores de notas y tiempos de fecha necesarios para la generacion de grafica estadistica DIAGRAMA LINEAL DE TENDENCIA",
+			description = "Consulta de historico de KPI que trae el detalle en los registros",
+			tags = "Registro_notas_KPI"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = GraficaLineal_kpi.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, no existe el historico de KPI's en especifico en la base de datos ",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
+	@CrossOrigin(origins ="*")
+	/* tomar todos los kpi*/
+	@GetMapping("/graficaLineal/{id_estudiante}")
+	public ResponseEntity<GraficaLineal_kpi> graficas(@PathVariable(value="id_estudiante") int id_estudiante){
+			List<Series> series= registro_Notas_kpiDAO.dataCalificacionyFecha(id_estudiante);
+			InformacionEstudiante inf=registro_Notas_kpiDAO.dataInformacionEstudiante(id_estudiante);
+			
+			GraficaLineal_kpi graficas= new GraficaLineal_kpi(inf.getNombre_estudiante(), inf.getApellidos_estudiante(), series);
+			
+		return ResponseEntity.ok().body(graficas);
+	}
+	
+	@Operation(
+			summary = "Consulta de datos con valores de notas y tiempos de fecha necesarios para la generacion de grafica estadistica HISTOGRAMA ",
+			description = "Consulta de historico de KPI que trae el detalle en los registros",
+			tags = "Registro_notas_KPI"
+	)
+	@ApiResponses(
+	 value= {
+			 @ApiResponse(
+					 responseCode = "200",
+					 description = "successful operation",
+					 content= @Content(
+							 array= @ArraySchema(
+									 schema=@Schema( implementation = GraficaTorta_kpi.class)
+							 )
+					 )
+			 ),
+			 @ApiResponse(
+					 responseCode = "204",
+					 description = "No content, no existe el historico de KPI's en especifico en la base de datos ",
+					 content= @Content(
+							 schema = @Schema(implementation = ErrorObject.class)
+							 )
+			 )
+	 }
+	)
+	@CrossOrigin(origins ="*")
+	/* tomar todos los kpi*/
+	@GetMapping("/graficaTorta/{id_estudiante}")
+	public ResponseEntity<List<GraficaTorta_kpi>> graficaHistograma(@PathVariable(value="id_estudiante") int id_estudiante){
+		
+		Extra ext=new Extra("Lerni");
+		List<actividadDisciplinariaNombreTorta> actTorta= registro_Notas_kpiDAO.dataNombreActividad(id_estudiante);
+		
+		List<GraficaTorta_kpi> gft= new ArrayList<GraficaTorta_kpi>(); 
+		for (actividadDisciplinariaNombreTorta act: registro_Notas_kpiDAO.dataNombreActividad(id_estudiante)) {
+			
+			GraficaTorta_kpi grafTorta= new GraficaTorta_kpi(act.getNombre(), act.getValor(), ext);
+			gft.add(grafTorta);
+		}
+		return ResponseEntity.ok().body(gft);
+		
+		
+	}
+	
 	
 }
